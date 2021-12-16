@@ -1,7 +1,21 @@
-// Import Bootstrap CSS
-import 'bootstrap/dist/css/bootstrap.min.css';
-// Custom styles
-import './stylesheets/main.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./stylesheets/style.css";
 
-// This is the entry point to your app : add all relevant import and custom code
+import Header from "./Components/Header/Header";
+import Footer from "./Components/Footer/Footer";
+import Navbar from "./Components/Navbar/Navbar";
+import {Router} from "./Components/Router/Router";
 
+// Improve the header with dynamic HTML generation
+Header();
+
+/// Improve the navbar : deal with the click events on navbar items
+Navbar();
+
+// Improve the header with dynamic HTML generation
+Footer();
+
+
+// Call the router
+// Call the HomePage
+Router();

@@ -1,0 +1,6 @@
+body {
+    /* Webpack will add this image to the output directory and replace the url with 
+    the final path to the image  */
+    background-image : url(../img/pizza.jpg);
+    background-size : cover;
+}
