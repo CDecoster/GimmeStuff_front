@@ -31,17 +31,17 @@ function ViewWishList() {
         const searchTerm = document.getElementById("searchTerm");
 
         console.log("forms values : ", searchTerm.value);
-        
+        searchProducts(searchTerm.value);
         //parse
-        const docs = searchProducts(searchTerm);
-        console.log("SEARCH PRODUCT : "+docs);
-        showTable(docs);
+        //var products = await searchProducts(searchTerm);
+        //console.log(products);
+        //showTable(products);
     }
 
 
     //array of products from Amazon API
     
-    function showTable(docs){
+    function showTable(prod){
         //create htmltable dynamic
         console.log("JE SUIS ICI 1");
         const tableWrapper = document.createElement("div");
@@ -60,44 +60,51 @@ function ViewWishList() {
         header3.innerText = "Price";
         const header4 = document.createElement("th");
         header4.innerText = "Rating";
-        const header5 = document.createElement("th");
-        header5.innerText = "Url";
+        //const header5 = document.createElement("th");
+        //header5.innerText = "Url";
         header.appendChild(header1);
         header.appendChild(header2);
         header.appendChild(header3);
         header.appendChild(header4);
-        header.appendChild(header5);
+        //header.appendChild(header5);
         table.appendChild(thead);
 
         console.log("JE SUIS ICI 2");
         //data for the table
         const tbody = document.createElement("tbody");
-        const docss = JSON.parse(docs);
-        docss.forEach((doc) => {
+        
+        prod.forEach((doc) => {
         //for(const doc of docs){
-            console.log("DOC : ", doc);
+            
             console.log("JE SUIS ICI 3");
             const line = document.createElement("tr");
             const titleCell = document.createElement("td");
             titleCell.innerText = doc.product_title;
             line.appendChild(titleCell);
             //HERE TODO SWITCH CELLE BY <IMG> TAG !!!!!!!!!!!!!!!!!!
+            
             const imageCell = document.createElement("td");
+            const url =document.createElement("a");
+            url.href = doc.product_detail_url;
             const image = document.createElement("img");
             image.src= doc.product_main_image_url;
-            imageCell.appendChild(image);
+            url.appendChild(image);
+            imageCell.appendChild(url);
             line.appendChild(imageCell);
             const priceCell = document.createElement("td");
-            priceCell = doc.original_price;
+            priceCell.innerText = doc.app_sale_price;
             line.appendChild(priceCell);
             const ratingCell = document.createElement("td");
-            ratingCell = doc.evaluate_rate;
+            ratingCell.innerText = doc.evaluate_rate;
             line.appendChild(ratingCell);
-            const urlCell = document.createElement("td");
-            const url = document.createElement("a");
-            url.href= doc.product_detail_url;
-            urlCell.appendChild(url);
-            line.appendChild(urlCell);
+            //const urlCell = document.createElement("td");
+            //const url = document.createElement("a");
+            //url.href= doc.product_detail_url;
+            //urlCell.appendChild(url);
+            
+            //console.log(urlCell);
+            //line.appendChild(urlCell);
+            tbody.appendChild(line);
 
         });
         table.appendChild(tbody);
@@ -107,17 +114,27 @@ function ViewWishList() {
 
 
     async function searchProducts(term) {
-        const response = await fetch("https://amazon24.p.rapidapi.com/api/product?categoryID=aps&keyword=" + term, {
-          "method": "GET",
-          "headers": {
-            "x-rapidapi-host": "amazon24.p.rapidapi.com",
-            "x-rapidapi-key": RAPID_API_KEY
-          }
-        });
-        const body = await response.json();
-        console.log("BODY FROM SEARCH PRODUCT : "+body);
-        return body;
-      }
+      console.log("TERM INTO ASYNC FUNCTION");
+      console.log(term);
+      fetch("https://amazon24.p.rapidapi.com/api/product?categoryID=aps&keyword=" + term+"&country=FR", {
+        "method": "GET",
+        "headers": {
+          "x-rapidapi-host": "amazon24.p.rapidapi.com",
+          "x-rapidapi-key": RAPID_API_KEY
+        }
+      }).then(response => 
+        response.json().then(data => ({
+          data: data,
+          status: response.status
+        })
+        ).then(res => {
+          //console.log(res.status, res.data.docs);
+          showTable(res.data.docs);
+          
+        }));
+        
+
+    }  
 
 } 
 
