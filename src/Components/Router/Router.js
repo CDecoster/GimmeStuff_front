@@ -3,6 +3,7 @@ import LoginPage from "../Pages/LoginPage";
 import RegisterPage from "../Pages/RegisterPage";
 import Logout from "../Logout/Logout";
 import AddWishlistPage from "../Pages/AddWishlistPage";
+import ViewWishList from "../Pages/ViewWishList";
 
 // Configure your routes here
 const routes = {
@@ -11,6 +12,7 @@ const routes = {
   "/register": RegisterPage,
   "/logout": Logout,
   "/wishlists/add": AddWishlistPage,
+  "/wishlists/addProduct": ViewWishList
 };
 
 /**
