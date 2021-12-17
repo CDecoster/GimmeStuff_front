@@ -1,3 +1,4 @@
+import { getSessionObject } from "../../utils/session"; // destructuring assignment ("{}": see MDN for more info ; )
 /**
  * Render a view of the pizzas into the #page div (formerly pizzaView function )
  */
@@ -6,8 +7,11 @@
   // reset #page div
   const pageDiv = document.querySelector("#page");
   pageDiv.innerHTML = "";
+  let user = getSessionObject("user");
 
-
+if(!user){
+console.log("not co");
+}else{
 try {
   // hide data to inform if the wishlist menu is already printed
   const response = await fetch("/api/whishlists"); // fetch return a promise => we wait for the response
@@ -62,6 +66,7 @@ try {
   pageDiv.appendChild(tableWrapper);
 } catch (error) {
   console.error("wishlistView::error: ", error);
+}
 }
 };
 
