@@ -143,8 +143,10 @@ function RegisterPage() {
       
     }
     
+    }else{
+      PopupError();
     }
-    PopupError();
+    
     
   
   }

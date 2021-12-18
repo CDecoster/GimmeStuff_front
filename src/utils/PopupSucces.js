@@ -1,4 +1,4 @@
-
+import swal from 'sweetalert';
 
 const PopupSucces =() =>{
     const popupsuccess = document.querySelector("#popupGood");
@@ -17,7 +17,9 @@ const PopupSucces =() =>{
 		</div>
 	</div>
     </div>`;
-    alert("Congratulation! You're sign in!");
+    //alert("Congratulation! You're sign in!");
+	swal("Congratulation!", "You're sign in!","succes");
+	
    // popupsuccess.innerHTML = popup;
 };
 
