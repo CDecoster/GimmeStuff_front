@@ -18,7 +18,7 @@ const PopupSucces =() =>{
 	</div>
     </div>`;
     //alert("Congratulation! You're sign in!");
-	swal("Congratulation!", "You're sign in!","succes");
+	swal("Congratulation!", "You're sign in!", "warning");
 	
    // popupsuccess.innerHTML = popup;
 };
