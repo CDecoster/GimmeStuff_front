@@ -127,11 +127,40 @@ function SearchProduct() {
         ).then(res => {
           //console.log(res.status, res.data.docs);
           showTable(res.data.docs);
+          addGift(res.data.docs);
           
         }));
         
 
-    }  
+    } 
+    //function to add a gift to the api
+    async function addGift(gift){
+      const title = gift.product_title;
+      const image = gift.product_main_image_url;
+      const price = gift.app_sale_price;
+      const reserverd = false;
+      const url = gift.product_detail_url;
+      const idAmazon = gift.product_id;
+      const option = {
+        method: "POST",
+        body: JSON.stringify({
+          title: title.value,
+          image: image.value,
+          price: price.value,
+          reserved: false,
+          url: url.value,
+          idAmazon: idAmazon.value,
+        }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+      };
+      const response = await fetch("/api/gifts/add",option);
+      if(!response.ok){
+        throw new Error("fetch error : "+ response.status+" : "+response.statusText);
+      }
+      //const gift = await response.json();
+    }
 
 } 
 
