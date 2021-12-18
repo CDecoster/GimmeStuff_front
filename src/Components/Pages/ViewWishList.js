@@ -1,6 +1,6 @@
-import { Redirect } from "../Router/Router";
-import { getSessionObject } from "../../utils/session";
-import { csonParser, parse } from "config/parser";
+// import { Redirect } from "../Router/Router";
+// import { getSessionObject } from "../../utils/session";
+// import { csonParser, parse } from "config/parser";
 
 const ViewWishList = async () => {
     //private key from amazon api at https://rapidapi.com/b2g.corporation/api/amazon24/
@@ -11,7 +11,7 @@ const ViewWishList = async () => {
     const tableWrapper = document.createElement("div");
     tableWrapper.className = "table-responsive pt-5";
     //get data from api getOne();
-    const response = await fetch("/api/whishlists/1");
+    const response = await fetch("/api/wishlists/1");
     const wishlist = await response.json();
     //create table header of my wishlist
 

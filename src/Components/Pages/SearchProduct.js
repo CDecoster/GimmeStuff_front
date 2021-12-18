@@ -1,6 +1,7 @@
-import { Redirect } from "../Router/Router";
-import { getSessionObject } from "../../utils/session";
-import { csonParser, parse } from "config/parser";
+// import { Redirect } from "../Router/Router";
+// import { getSessionObject } from "../../utils/session";
+// import { csonParser, parse } from "config/parser";
+
 
 function SearchProduct() {
     //var idProduct = "";

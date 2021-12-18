@@ -1,16 +1,13 @@
 body {
     /* Webpack will add this image to the output directory and replace the url with 
     the final path to the image  */
+    /* background-image : url(../img/pizza.jpg);
+    background-size : cover; */
     background-image : url(../img/bgwish.jpg);
     background-size : cover;
-    
+
 }
-#navbarWrapper {
-    /*
-    position :absolute;
-    height : 100vh;
-    */
-}
+
 
 #footer{
     font-size: large;
@@ -33,7 +30,7 @@ body {
 .form-control.mb-3.succes input{
     border-color: #2ecc71;
     max-width: 50vh;
-   
+
 }
 .form-control.mb-3.error input {
     border-color: red;

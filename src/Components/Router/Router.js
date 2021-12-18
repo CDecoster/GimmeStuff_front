@@ -5,6 +5,8 @@ import Logout from "../Logout/Logout";
 import AddWishlistPage from "../Pages/AddWishlistPage";
 import SearchProduct from "../Pages/SearchProduct";
 import ViewWishList from "../Pages/ViewWishList";
+import EditWishList from "../Pages/EditWishList";
+
 
 // Configure your routes here
 const routes = {
@@ -15,6 +17,7 @@ const routes = {
   "/wishlists/add": AddWishlistPage,
   "/wishlists/addProduct": SearchProduct,
   "/wishlists/id" : ViewWishList,
+  "/wishlists/edit": EditWishList
 };
 
 /**

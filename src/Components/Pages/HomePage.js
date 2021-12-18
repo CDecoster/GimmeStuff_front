@@ -1,73 +1,153 @@
-import { getSessionObject } from "../../utils/session"; // destructuring assignment ("{}": see MDN for more info ; )
+import { getSessionObject, setSessionObject } from "../../utils/session";
+import { Redirect } from "../Router/Router";
+import modifyIcon from "../../img/icon_modify.png";
+import inspectIcon from "../../img/icon_inspect.png";
 /**
  * Render a view of the pizzas into the #page div (formerly pizzaView function )
  */
 
- const HomePage = async () => {
+const HomePage = async () => {
+  let user = getSessionObject("user");
+
+
   // reset #page div
   const pageDiv = document.querySelector("#page");
   pageDiv.innerHTML = "";
-  let user = getSessionObject("user");
 
-if(!user){
-console.log("not co");
-}else{
-try {
-  // hide data to inform if the wishlist menu is already printed
-  const response = await fetch("/api/whishlists"); // fetch return a promise => we wait for the response
+  if (!user) {
 
-  if (!response.ok) {
-    // status code was not 200, error status code
-    throw new Error(
-      "fetch error : " + response.status + " : " + response.statusText
-    );
+    /*TO DO html for homepage when not connected*/
+
   }
-  const wishlists = await response.json(); // json() returns a promise => we wait for the data
-  // create a wrapper to provide a responsive table
-  const tableWrapper = document.createElement("div");
-  tableWrapper.className = "table-responsive pt-5";
-  // create an HTMLTableElement dynamically, based on the wishlists data (Array of Objects)
-  const table = document.createElement("table");
-  table.className = "table table-danger";
-  tableWrapper.appendChild(table);
-  // deal with header
-  const thead = document.createElement("thead");
-  const header = document.createElement("tr");
-  thead.appendChild(header);
-  const header1 = document.createElement("th");
-  header1.innerText = "Wishlist";
-  const header2 = document.createElement("th");
-  header2.innerText = "Createur wishlist";
-  const header3 = document.createElement("th");
-  header3.innerText = "Description";
-  header.appendChild(header1);
-  header.appendChild(header2);
-  header.appendChild(header3);
-  table.appendChild(thead);
-  // deal with data rows for tbody
-  const tbody = document.createElement("tbody");
-  wishlists.forEach((wishlist) => {
-    const line = document.createElement("tr");
-    const titleCell = document.createElement("td");
-    titleCell.innerText = wishlist.title;
-    line.appendChild(titleCell);
-    const utilisateurCell = document.createElement("td");
-    utilisateurCell.innerText = wishlist.utilisateur;
-    line.appendChild(utilisateurCell);
-    const descriptionCell = document.createElement("td");
-    descriptionCell.innerText = wishlist.content;
-    line.appendChild(descriptionCell);
-    // hide info within each row, the wishlist id
-    line.dataset.wishlistId = wishlist.id;
-    tbody.appendChild(line);
-  });
-  table.appendChild(tbody);
-  // add the HTMLTableElement to the main, within the #page div
-  pageDiv.appendChild(tableWrapper);
-} catch (error) {
-  console.error("wishlistView::error: ", error);
+  else {
+
+
+
+    try {
+      // hide data to inform if the wishlist menu is already printed
+
+
+      const response = await fetch(`/api/wishlists/user=${user.id}`); // fetch return a promise => we wait for the response
+
+      if (!response.ok) {
+        // status code was not 200, error status code
+        throw new Error(
+          "fetch error : " + response.status + " : " + response.statusText
+        );
+      }
+      const wishlists = await response.json(); // json() returns a promise => we wait for the data
+
+      if (wishlists.length == 0) {
+
+
+        /*A insérer du html ,ex : "vous n'avez pas de wishlist déjà créées, veuillez en créer une "*/
+        Redirect("/wishlists/add");
+
+      }
+      else {
+        /*colonne contenu et utilisateur ne sont plus nécessaires*/
+
+
+        // create a wrapper to provide a responsive table
+        const tableWrapper = document.createElement("div");
+        tableWrapper.className = "table-responsive pt-5";
+        // create an HTMLTableElement dynamically, based on the wishlists data (Array of Objects)
+        const table = document.createElement("table");
+        table.className = "table table-danger";
+        tableWrapper.appendChild(table);
+        // deal with header
+        const thead = document.createElement("thead");
+        const header = document.createElement("tr");
+        thead.appendChild(header);
+        const header1 = document.createElement("th");
+        header1.innerText = "Wishlist";
+        // const header2 = document.createElement("th");
+        // header2.innerText = "Createur wishlist";
+        const header3 = document.createElement("th");
+        header3.innerText = "Description";
+        // const header4 = document.createElement("th");
+        // header4.innerText = "contenu";
+        const header5 = document.createElement("th");
+        header5.innerText = "Modifier";
+        header.appendChild(header1);
+        // header.appendChild(header2);
+        header.appendChild(header3);
+        // header.appendChild(header4);
+        header.appendChild(header5);
+        table.appendChild(thead);
+        // deal with data rows for tbody
+        const tbody = document.createElement("tbody");
+        wishlists.forEach((wishlist) => {
+          const line = document.createElement("tr");
+          const titleCell = document.createElement("td");
+          titleCell.innerText = wishlist.title;
+
+          const url = document.createElement("a");
+          url.href = "/wishlists/id";
+          const image = document.createElement("img");
+          image.src = inspectIcon;
+          image.style.width = "30px";
+          image.style.height = "30px";
+          image.style.padding = "5px";
+          url.appendChild(image);
+          titleCell.appendChild(url);
+          line.appendChild(titleCell);
+          // const utilisateurCell = document.createElement("td");
+          // utilisateurCell.innerText = wishlist.utilisateur;
+          // line.appendChild(utilisateurCell);
+          const descriptionCell = document.createElement("td");
+          descriptionCell.innerText = wishlist.description;
+          line.appendChild(descriptionCell);
+          // const contentCell = document.createElement("td");
+          // contentCell.innerText = wishlist.content
+
+          // line.appendChild(contentCell);
+
+          const imageCell = document.createElement("td");
+          const url2 = document.createElement("a");
+          url2.href = "/wishlists/edit";
+          const image2 = document.createElement("img");
+          image2.src = modifyIcon;
+          url2.appendChild(image2);
+          imageCell.appendChild(url2);
+          line.appendChild(imageCell);
+
+          /*A test de créer des boutons + un array qui fait un querey selector sur tous , ajouter un addevent listener et faire un redirect vers la page edit
+          avec le bon wishlist id dans l'url*/
+          line.dataset.wishlistId = wishlist.id;
+
+          line.dataset.userId = user.id;
+          tbody.appendChild(line);
+
+          function onClickHandlerForInspectIcon() {
+
+            console.log("onClickHandlerForInspectIcon::click" + " wishlist id : " + wishlist.id);
+            setSessionObject("wishlistInspected", wishlist.id);
+          }
+          image.addEventListener("click", onClickHandlerForInspectIcon);
+
+
+          function onClickHandlerForModifyIcon() {
+
+            console.log("onClickHandlerForModifyIcon::click" + " wishlist id : " + wishlist.id);
+            setSessionObject("wishlistModified", wishlist.id);
+          }
+          image2.addEventListener("click", onClickHandlerForModifyIcon);
+
+
+
+        });
+        table.appendChild(tbody);
+        // add the HTMLTableElement to the main, within the #page div
+        pageDiv.appendChild(tableWrapper);
+      }
+
+    } catch (error) {
+      console.error("wishlistView::error: ", error);
+    }
+  };
 }
-}
-};
+
+
 
 export default HomePage;

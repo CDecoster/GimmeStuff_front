@@ -41,14 +41,18 @@ function LoginPage() {
     console.log("on submit called");
     e.preventDefault();
     const username = document.getElementById("username");
-    const password = document.getElementById("password");
+    const password = document.getElementById("password");''
     console.log("credentials", username.value, password.value);
+
+
+    
     try {
       const options = {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         body: JSON.stringify({
           username: username.value,
           password: password.value,
+          
         }), // body data type must match "Content-Type" header
         headers: {
           "Content-Type": "application/json",
@@ -56,14 +60,27 @@ function LoginPage() {
       };
 
       const response = await fetch("/api/auths/login", options); // fetch return a promise => we wait for the response
-      console.log("after fetch from api");
+      
       if (!response.ok) {
         throw new Error(
           "fetch error : " + response.status + " : " + response.statusText
         );
       }
       const user = await response.json(); // json() returns a promise => we wait for the data
-      console.log("user authenticated" + user.username + " , "+ user.password);
+      
+
+      // try{
+      //   const options2 = {
+      //     method: "GET",
+      //     body: JSON.strinfigy({
+      //       username: username.value,
+      //     }),
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   }
+      // };
+
+
       // save the user into the localStorage
       setSessionObject("user", user);
 

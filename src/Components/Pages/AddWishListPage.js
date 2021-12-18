@@ -7,8 +7,8 @@ import { getSessionObject } from "../../utils/session";
  */
 function AddWishlistPage() {
   let user = getSessionObject("user");
-  if (!user) return Redirect("/login");
-
+  if (!user) return Redirect("/");
+  console.log("user id : " +user.id);
   // reset #page div
   const pageDiv = document.querySelector("#page");
   pageDiv.innerHTML = "";
@@ -22,12 +22,18 @@ function AddWishlistPage() {
   title.placeholder = "title of wishlist";
   title.required = true;
   title.className = "form-control mb-3";
-  const utilisateur = document.createElement("input");
-  utilisateur.type = "text";
-  utilisateur.id = "utilisateur";
-  utilisateur.placeholder = "pseudonyme";
-  utilisateur.required = true;
-  utilisateur.className = "form-control mb-3";
+  // const utilisateur = document.createElement("input");
+  // utilisateur.type = "text";
+  // utilisateur.id = "utilisateur";
+  // utilisateur.placeholder = "pseudonyme";
+  // utilisateur.required = true;
+  // utilisateur.className = "form-control mb-3";
+  const description = document.createElement("input");
+  description.type = "text";
+  description.id = "description";
+  description.placeholder = "description";
+  description.required = true;
+  description.className = "form-control mb-3";
   const content = document.createElement("input");
   content.type = "text";
   content.id = "content";
@@ -39,7 +45,8 @@ function AddWishlistPage() {
   submit.type = "submit";
   submit.className = "btn btn-danger";
   form.appendChild(title);
-  form.appendChild(utilisateur);
+  // form.appendChild(utilisateur);
+  form.appendChild(description);
   form.appendChild(content);
   form.appendChild(submit);
 
@@ -50,17 +57,20 @@ function AddWishlistPage() {
     e.preventDefault();
     const title = document.getElementById("title");
     
-    const utilisateurId = document.getElementById("utilisateur");
-    
+    // const utilisateur = document.getElementById("utilisateur");
+
+    const description = document.getElementById("description");
+
     const content = document.getElementById("content");
   
-    console.log("forms values : ",  title.value, utilisateur.value, content.value);
+    console.log("forms values : ",  title.value, user.id, description.value, content.value);
     try {
       const options = {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         body: JSON.stringify({
           title: title.value,
-          utilisateur: utilisateur.value,
+          utilisateur: user.id,
+          description: description.value,
           content: content.value,
         }), // body data type must match "Content-Type" header
         headers: {
@@ -69,7 +79,7 @@ function AddWishlistPage() {
         },
       };
 
-      const response = await fetch("/api/whishlists", options); // fetch return a promise => we wait for the response
+      const response = await fetch("/api/wishlists", options); // fetch return a promise => we wait for the response
 
       if (!response.ok) {
         throw new Error(
@@ -77,6 +87,7 @@ function AddWishlistPage() {
         );
       }
       const wishlist = await response.json(); // json() returns a promise => we wait for the data
+      /*pop up de reussie ou non en fonction de wishlist*/
       console.log("wishlist added : ", user);
 
       // call the HomePage via the Router

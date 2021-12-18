@@ -7,11 +7,13 @@ const Logout = () => {
 
   // clear the user session data from the localStorage
   removeSessionObject("user");
+  removeSessionObject("wishlistModified");
+  removeSessionObject("wishlistInspected");
 
   
   // re-render the navbar for a non-authenticated user
   Navbar();
-  Redirect("/login"); 
+  Redirect("/"); 
 };
 
 export default Logout;
