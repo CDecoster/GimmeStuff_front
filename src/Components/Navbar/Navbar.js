@@ -45,7 +45,7 @@ const Navbar = () => {
   `;
   } else {
     navbar = `
-  <nav class="navbar navbar-expand-lg navbar-light bg-danger">
+    <nav class="navbar navbar-expand-lg navbar-light bg-danger">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">e-Pizzeria</a>
           <button
