@@ -2,6 +2,9 @@
 // import { getSessionObject } from "../../utils/session";
 // import { csonParser, parse } from "config/parser";
 
+import { getSessionObject } from "../../utils/session";
+import { Redirect } from "../Router/Router";
+
 
 function SearchProduct() {
     //var idProduct = "";
@@ -45,7 +48,7 @@ function SearchProduct() {
     function showTable(prod){
         //create htmltable dynamic
         console.log("JE SUIS ICI 1");
-
+        let wishlistId = getSessionObject("wishlistInspected");
         tableWrapper.className = "table-responsive pt-5";
         const table = document.createElement("table");
         table.className = "table table-danger";
@@ -61,10 +64,13 @@ function SearchProduct() {
         header3.innerText = "Price";
         const header4 = document.createElement("th");
         header4.innerText = "Rating";
+        const header5 = document.createElement("th");
+        header5.innerText = "Add Product"
         header.appendChild(header1);
         header.appendChild(header2);
         header.appendChild(header3);
         header.appendChild(header4);
+        header.appendChild(header5);
         table.appendChild(thead);
 
         console.log("JE SUIS ICI 2");
@@ -84,6 +90,8 @@ function SearchProduct() {
             url.href = doc.product_detail_url;
             const image = document.createElement("img");
             image.src= doc.product_main_image_url;
+            image.width = "50px";
+            image.height = "100px";
             url.appendChild(image);
             imageCell.appendChild(url);
             line.appendChild(imageCell);
@@ -93,6 +101,14 @@ function SearchProduct() {
             const ratingCell = document.createElement("td");
             ratingCell.innerText = doc.evaluate_rate;
             line.appendChild(ratingCell);
+            const buttonCell = document.createElement("td");
+            const button = document.createElement("button");
+            button.innerText = "Add To WishList";
+            button.onclick = function(){
+                addGift(doc);
+            }
+            buttonCell.appendChild(button);
+            line.appendChild(buttonCell);
             //const urlCell = document.createElement("td");
             //const url = document.createElement("a");
             //url.href= doc.product_detail_url;
@@ -160,6 +176,11 @@ function SearchProduct() {
         throw new Error("fetch error : "+ response.status+" : "+response.statusText);
       }
       //const gift = await response.json();
+    }
+    async function addGiftToWishList(gift){
+      //TODO
+
+      Redirect("/wishlists/id");
     }
 
 } 

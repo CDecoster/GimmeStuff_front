@@ -38,6 +38,7 @@ const ViewWishList = async () => {
     header.appendChild(header3);
     header.appendChild(header4);
     table.appendChild(thead);
+
     const tbody = document.createElement("tbody");
     //get id of each product from our wishlist, split the json's string content
     const str = wishlist.content;
@@ -52,26 +53,28 @@ const ViewWishList = async () => {
     table.appendChild(tbody);
     pageDiv.appendChild(tableWrapper);
     async function searchProductFromId(id){
-        
+        const response2 = await fetch(`/api/gifts/idAmazon/${id}`);
+        const product =  await response2.json();
+        constructTableLine(product);
     };
     //construct the line of the table in async function (after amazon call)
     function constructTableLine(product){
         const line = document.createElement("tr");
             const titleCell = document.createElement("td");
-            titleCell.innerText = product.product_title;
+            titleCell.innerText = product.title;
             line.appendChild(titleCell);
             const imageCell = document.createElement("td");
             const url =document.createElement("a");
-            url.href = product.product_detail_url;
+            url.href = product.url;
             const image = document.createElement("img");
-            image.src = product.product_main_image_url;
+            image.src = product.image;
             image.width = "50";
             image.height = "100";
             url.appendChild(image);
             imageCell.appendChild(url);
             line.appendChild(imageCell);
             const priceCell = document.createElement("td");
-            priceCell.innerText = product.app_sale_price;
+            priceCell.innerText = product.price;
             line.appendChild(priceCell);
             tbody.appendChild(line);
     };
