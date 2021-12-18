@@ -2,6 +2,7 @@
 import {Redirect} from "../Router/Router";
 import Navbar from "../Navbar/Navbar";
 import { setSessionObject } from "../../utils/session";
+import PopupSucces from "../../utils/PopupSucces";
 
 /**
  * View the Login form :
@@ -89,6 +90,7 @@ function LoginPage() {
 
       // call the HomePage via the Router
       Redirect("/");
+      PopupSucces();
       
     } catch (error) {
       console.error("LoginPage::error: ", error);

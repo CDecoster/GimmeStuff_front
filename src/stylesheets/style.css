@@ -5,6 +5,7 @@ body {
     background-size : cover; */
     background-image : url(../img/bgwish.jpg);
     background-size : cover;
+ 
 
 }
 
@@ -37,3 +38,18 @@ body {
     max-width: 50vh;
 
 }
+
+
+.page{
+    width:75%;
+    float:right;
+    
+}
+  
+  #sidebar {
+      width: 25%;
+      float: left;
+      clear: both;
+      position: absolute; 
+  }
+
