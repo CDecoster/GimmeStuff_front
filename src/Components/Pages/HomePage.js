@@ -2,6 +2,7 @@ import { getSessionObject, setSessionObject } from "../../utils/session";
 import { Redirect } from "../Router/Router";
 import modifyIcon from "../../img/icon_modify.png";
 import inspectIcon from "../../img/icon_inspect.png";
+import countDown from "../../utils/countDown";
 /**
  * Render a view of the pizzas into the #page div (formerly pizzaView function )
  */
@@ -27,15 +28,40 @@ const HomePage = async () => {
       // hide data to inform if the wishlist menu is already printed
 
 
-      const response = await fetch(`/api/wishlists/user=${user.id}`); // fetch return a promise => we wait for the response
+      const response1 = await fetch(`/api/wishlists/user=${user.id}`); // fetch return a promise => we wait for the response
 
-      if (!response.ok) {
+      if (!response1.ok) {
         // status code was not 200, error status code
         throw new Error(
-          "fetch error : " + response.status + " : " + response.statusText
+          "fetch error : " + response1.status + " : " + response1.statusText
         );
       }
-      const wishlists = await response.json(); // json() returns a promise => we wait for the data
+      const wishlists = await response1.json(); // json() returns a promise => we wait for the data
+
+
+      try{
+        const response2 = await fetch(`/api/users/${user.id}`); // fetch return a promise => we wait for the response
+
+        if (!response2.ok) {
+          // status code was not 200, error status code
+          throw new Error(
+            "fetch error : " + response2.status + " : " + response2.statusText
+          );
+        }
+        const userInfos = await response2.json(); // json() returns a promise => we wait for the data
+        console.log("user info birthday" + userInfos.birthday);
+        const countDownText = document.createElement("div");
+        countDownText.id ="countDownText";
+        countDownText.innerText = countDown(userInfos.birthday, "birthday");
+        
+        pageDiv.appendChild(countDownText);
+
+      }
+      catch{
+        console.error("userInfos::error: ", error);
+      }
+      
+      
 
       if (wishlists.length == 0) {
 
@@ -68,12 +94,15 @@ const HomePage = async () => {
         // const header4 = document.createElement("th");
         // header4.innerText = "contenu";
         const header5 = document.createElement("th");
-        header5.innerText = "Modifier";
+        header5.innerText = "Temps restant";
+        const header6 = document.createElement("th");
+        header6.innerText = "Modifier";
         header.appendChild(header1);
         // header.appendChild(header2);
         header.appendChild(header3);
         // header.appendChild(header4);
         header.appendChild(header5);
+        header.appendChild(header6);
         table.appendChild(thead);
         // deal with data rows for tbody
         const tbody = document.createElement("tbody");
@@ -102,6 +131,9 @@ const HomePage = async () => {
           // contentCell.innerText = wishlist.content
 
           // line.appendChild(contentCell);
+          const timeLeftCell = document.createElement("td");
+          timeLeftCell.innerText = wishlist.end;
+          line.appendChild(timeLeftCell);
 
           const imageCell = document.createElement("td");
           const url2 = document.createElement("a");
