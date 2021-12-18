@@ -1,3 +1,4 @@
+import { end } from "@popperjs/core";
 import { getSessionObject } from "../../utils/session";
 import { Redirect } from "../Router/Router";
 
@@ -55,13 +56,62 @@ async function EditWishlistPage() {
             // content.placeholder = "content of wishlist ";
             // content.className = "form-control mb-3";
 
+            const wishListDate = wishlist.end.split("-");
+            const wishListDay = wishListDate[2].split("T");
+            const moisPlaceHolder = wishListDate[1];
+            const jourPlaceHolder = wishListDay[0];
+            const anneePlaceHolder = wishListDate[0];
+            const end = document.createElement("div");
+
+            end.innerHTML = "Date de naissance :";
+            const jour = document.createElement("input");
+            jour.type = "text";
+            jour.id = "jour";
+            jour.placeholder = jourPlaceHolder;
+            jour.className = "form-control mb-3";
+
+            const mois = document.createElement("input");
+            mois.type = "text";
+            mois.id = "mois";
+            mois.placeholder = moisPlaceHolder;
+            mois.className = "form-control mb-3";
+            const annee = document.createElement("input");
+            annee.type = "text";
+            annee.id = "annee";
+            annee.placeholder = anneePlaceHolder;
+            annee.className = "form-control mb-3";
+            const labelJour = document.createElement("label");
+            labelJour.innerText = "Jour : ";
+            const labelMois = document.createElement("label");
+            labelMois.innerText = "Mois : ";
+            const labelAnnee = document.createElement("label");
+            labelAnnee.innerText = "Annee : ";
+            const breakPoint = document.createElement("label");
+            breakPoint.innerText = "";
+            end.appendChild(breakPoint);
+            end.appendChild(labelJour);
+            end.appendChild(jour);
+            end.appendChild(labelMois);
+            end.appendChild(mois);
+            end.appendChild(labelAnnee);
+            end.appendChild(annee);
+
+
             const submit = document.createElement("input");
             submit.value = "Modifier";
             submit.type = "submit";
             submit.className = "btn btn-danger";
+
+            const labelTitle = document.createElement("label");
+            labelTitle.innerText = "Titre de votre wishlist : ";
+            const labelDescription = document.createElement("label");
+            labelDescription.innerText = "Description de votre wishlist : ";
+            form.appendChild(labelTitle);
             form.appendChild(title);
+            form.appendChild(labelDescription);
 
             form.appendChild(description);
+            form.appendChild(end);
             // form.appendChild(content);
             form.appendChild(submit);
             form.addEventListener("submit", onSubmit);
@@ -72,18 +122,42 @@ async function EditWishlistPage() {
                 const title = document.getElementById("title");
 
 
+                // console.log("title :" + title.value);
+                // console.log("annee :" + annee);
+                // const description = document.getElementById("description");
+                // console.log("on submit before check data");
+                // if (mois === void 0) mois = moisPlaceHolder;
+                // if (annee === void 0) annee = anneePlaceHolder;
+                // if (jour === void 0) jour = jourPlaceHolder;
 
-                const description = document.getElementById("description");
-
+                if (!title.value) {
+                    title.value = title.placeholder;
+                }
+                if (!description.value) {
+                    description.value = title.placeholder;
+                }
+               
+                console.log("on submit after check data");
+                const jour = document.getElementById("jour");
+                const mois = document.getElementById("mois");
+                const annee = document.getElementById("annee");
+                console.log("before check");
+                const end = checkYear(annee.value) + "-" + checkMonth(mois.value) + "-" + checkDay(jour.value) + "T00:00";
+                console.log("date de fin wishlist : " + end);
                 // const content = document.getElementById("content");
 
-                console.log("forms values : ", title.value, description.value);
+                console.log("title place holder: " + title.placeholder);
+
+
+
+                console.log("forms values : ", title.value, description.value, end);
                 try {
                     const options = {
                         method: "PUT", // *GET, POST, PUT, DELETE, etc.
                         body: JSON.stringify({
                             title: title.value,
-                            description: description.value
+                            description: description.value,
+                            end: end
                         }), // body data type must match "Content-Type" header
                         headers: {
                             "Content-Type": "application/json",
@@ -116,4 +190,27 @@ async function EditWishlistPage() {
 
 
 }
+
+
+function checkDay(jour) {
+    // console.log("jour.value.length : " + jour.value.length);
+    // if(jour === void 0) jour.value = jourPlaceHolder;
+    if (jour < 10) return "0" + jour;
+    console.log("jour.value : " + jour.value);
+}
+
+function checkMonth(mois) {
+    // console.log("mois.value.length : " + mois.value.length);
+    // if(mois === void 0) mois.value = moisPlaceHolder;
+    if (mois < 10) return "0" + mois;
+   console.log("mois.value : " + mois.value);
+}
+
+function checkYear(annee) {
+    // console.log("year.value.length : " + year.value.length);
+    // if(year === void 0) year.value = yearPlaceHolder;
+    console.log("annee.value : " + annee.value);
+}
+
+
 export default EditWishlistPage;
