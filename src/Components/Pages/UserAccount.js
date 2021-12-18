@@ -65,10 +65,58 @@ async function onClickCollapse(e) {
 e.preventDefault();
 console.log("test");
 
+
+
+try {
+    const options = {
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      body: JSON.stringify({
+        username: username.value,
+        password: password.value,
+        //email: email.value,
+      }), // body data type must match "Content-Type" header
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const response = await fetch("/api/auths/userAccount", options); // fetch return a promise => we wait for the response
+
+    if (!response.ok) {
+      PopupError();
+      throw new Error(
+        "fetch error : " + response.status + " : " + response.statusText
+        
+      );
+    
+      
+    }
+    const user = await response.json(); // json() returns a promise => we wait for the data
+    console.log("user authenticated", user);
+
+    
+
+    // save the user into the localStorage
+    setSessionObject("user", user);
+    
+
+    // Rerender the navbar for an authenticated user : temporary step prior to deal with token
+    Navbar({isAuthenticated:true});
+
+  
+    // call the HomePage
+    Redirect("/");
+  
+    // Display the succes Pop-up
+    PopupSucces();
+    
+   
+  } catch (error) {
+    console.error("RegisterPage::error: ", error);
+    
+  }
+
 }
-
-
-
 }
 
 export default UserAcount;

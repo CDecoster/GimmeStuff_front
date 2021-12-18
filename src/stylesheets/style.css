@@ -43,11 +43,13 @@ body {
 .page{
     width:75%;
     float:right;
+    position:relative;
     
 }
   
   #sidebar {
       width: 25%;
+      height: 100vh;;
       float: left;
       clear: both;
       position: absolute; 
