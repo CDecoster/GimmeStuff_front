@@ -66,7 +66,10 @@ const Navbar = () => {
               </li> 
               <li class="nav-item">
                 <a class="nav-link" href="#" data-uri="/wishlists/add">Add a wishlist</a>
-              </li>   
+              </li>
+              <li class="nav-item">
+              <a class="nav-link" href="#" data-uri="/UserAccount">My account</a>
+            </li>      
               <li class="nav-item">
                 <a class="nav-link" href="#" data-uri="/logout">Logout</a>
               </li>
