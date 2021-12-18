@@ -2,6 +2,9 @@
 import {Redirect} from "../Router/Router";
 import Navbar from "../Navbar/Navbar";
 import { setSessionObject } from "../../utils/session";
+import PopupSucces from "../../utils/PopupSucces";
+import PopupError from "../../utils/PopupError";
+
 
 /**
  * View the Register form :
@@ -107,12 +110,18 @@ function RegisterPage() {
       const response = await fetch("/api/auths/register", options); // fetch return a promise => we wait for the response
 
       if (!response.ok) {
+        PopupError();
         throw new Error(
           "fetch error : " + response.status + " : " + response.statusText
+          
         );
+      
+        
       }
       const user = await response.json(); // json() returns a promise => we wait for the data
       console.log("user authenticated", user);
+
+      
 
       // save the user into the localStorage
       setSessionObject("user", user);
@@ -124,11 +133,19 @@ function RegisterPage() {
     
       // call the HomePage
       Redirect("/");
+    
+      // Display the succes Pop-up
+      PopupSucces();
+      
      
     } catch (error) {
       console.error("RegisterPage::error: ", error);
+      
     }
+    
     }
+    PopupError();
+    
   
   }
 }
