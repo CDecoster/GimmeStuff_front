@@ -6,7 +6,7 @@ import { getSessionObject } from "../../utils/session";
 import { Redirect } from "../Router/Router";
 
 
-function SearchProduct() {
+const SearchProduct = async () => {
     //var idProduct = "";
     const tableWrapper = document.createElement("div");
     
@@ -14,6 +14,10 @@ function SearchProduct() {
     const pageDiv = document.querySelector("#page");
     pageDiv.innerHTML= "";
 
+    //get data from api getOneWishlist
+    let wishlistId = getSessionObject("wishlistInspected");
+    const response =  await fetch("/api/wishlists/"+wishlistId);
+    const wishlist =  await response.json();
     //button bar to start search on amazon api
     const form = document.createElement("form");
     form.className = "p-5";
@@ -48,7 +52,7 @@ function SearchProduct() {
     function showTable(prod){
         //create htmltable dynamic
         console.log("JE SUIS ICI 1");
-        let wishlistId = getSessionObject("wishlistInspected");
+        var wishlistId = getSessionObject("wishlistInspected");
         tableWrapper.className = "table-responsive pt-5";
         const table = document.createElement("table");
         table.className = "table table-danger";
@@ -90,8 +94,8 @@ function SearchProduct() {
             url.href = doc.product_detail_url;
             const image = document.createElement("img");
             image.src= doc.product_main_image_url;
-            image.width = "50px";
-            image.height = "100px";
+            image.width = "50";
+            image.height = "100";
             url.appendChild(image);
             imageCell.appendChild(url);
             line.appendChild(imageCell);
@@ -105,7 +109,10 @@ function SearchProduct() {
             const button = document.createElement("button");
             button.innerText = "Add To WishList";
             button.onclick = function(){
-                addGift(doc);
+              console.log("J4AICLIQU2");
+                const gift = addGift(doc);
+                addGiftToWishList(gift);
+              
             }
             buttonCell.appendChild(button);
             line.appendChild(buttonCell);
@@ -160,28 +167,48 @@ function SearchProduct() {
       const option = {
         method: "POST",
         body: JSON.stringify({
-          title: title.value,
-          image: image.value,
-          price: price.value,
+          title: title,
+          image: image,
+          price: price,
           reserved: false,
-          url: url.value,
-          idAmazon: idAmazon.value,
+          url: url,
+          idAmazon: idAmazon,
         }),
           headers: {
             "Content-Type": "application/json",
           },
       };
-      const response = await fetch("/api/gifts/add",option);
+      const response = await fetch("/api/gifts",option);
       if(!response.ok){
         throw new Error("fetch error : "+ response.status+" : "+response.statusText);
       }
       //const gift = await response.json();
     }
     async function addGiftToWishList(gift){
-      //TODO
+      const title = wishlist.title;
+      const utilisateur = wishlist.utilisateur;
+      const description = wishlist.description;
+      const content = wishlist.content+", "+gift.idAmazon;
+      const option = {
+        method: "PUT",
+        body: JSON.stringify({
+          title: title,
+          utilisateur: utilisateur,
+          description: description,
+          content: content,
+        }),
+         headers: {
+           "Content-Type": "application/json",
+           "Access-Control-Allow-Origin" : "*", 
+            "Access-Control-Allow-Credentials" : true 
+         },
+      };
+      const response3 = await fetch("api/wishlists/"+wishlistId,option);
+     
 
-      Redirect("/wishlists/id");
+      Redirect("/");
     }
+    
 
 } 
 

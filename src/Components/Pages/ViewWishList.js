@@ -3,6 +3,7 @@
 // import { csonParser, parse } from "config/parser";
 
 import { getSessionObject } from "../../utils/session";
+import { Redirect } from "../Router/Router";
 
 const ViewWishList = async () => {
     //private key from amazon api at https://rapidapi.com/b2g.corporation/api/amazon24/
@@ -15,10 +16,17 @@ const ViewWishList = async () => {
     //get data from api getOne();
     let wishlistId = getSessionObject("wishlistInspected");
     const response = await fetch("/api/wishlists/"+wishlistId);
+
     const wishlist = await response.json();
+    
     //create table header of my wishlist
 
-    
+    const button = document.createElement("button");
+    button.innerText= "Add a product to your wishlist";
+    button.onclick = function(){
+        Redirect("/wishlists/addProduct");
+    }
+    pageDiv.appendChild(button)
     const table = document.createElement("table");
     table.className = "table table-danger";
     tableWrapper.appendChild(table);
@@ -53,7 +61,13 @@ const ViewWishList = async () => {
     table.appendChild(tbody);
     pageDiv.appendChild(tableWrapper);
     async function searchProductFromId(id){
-        const response2 = await fetch(`/api/gifts/idAmazon/${id}`);
+        const response2 = await fetch("/api/gifts/idAmazon/"+id);
+        if (!response2.ok) {
+            // status code was not 200, error status code
+            throw new Error(
+              "fetch error : " + response2.status + " : " + response2.statusText
+            );
+        }
         const product =  await response2.json();
         constructTableLine(product);
     };
@@ -80,9 +94,6 @@ const ViewWishList = async () => {
     };
     
 
-     function sleep(time){
-         return new Promise ((resolve)=> setTimeout(resolve,time));
-     }; 
 
 };
 
