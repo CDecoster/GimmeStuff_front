@@ -5,7 +5,7 @@ import "./stylesheets/style.css";
 import Footer from "./Components/Footer/Footer";
 import Navbar from "./Components/Navbar/Navbar";
 import {Router} from "./Components/Router/Router";
-import Sidebar from "./Components/Navbar/Sidebar";
+// import Sidebar from "./Components/Navbar/Sidebar";
 
 // Improve the header with dynamic HTML generation
 //Header();
@@ -14,7 +14,7 @@ import Sidebar from "./Components/Navbar/Sidebar";
 Navbar();
 
 /// SidebarLayout
-Sidebar();
+// Sidebar();
 
 // Improve the header with dynamic HTML generation
 Footer();
