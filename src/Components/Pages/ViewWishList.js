@@ -59,10 +59,7 @@ const ViewWishList = async () => {
         const words = str.split(', ');
         for(let i=0;i<words.length;i++){
             //amazon api async function to get all details
-    
-                await searchProductFromId(words[i]);
-    
-            
+            await searchProductFromId(words[i]);
         }
     }
     

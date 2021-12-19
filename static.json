@@ -11,7 +11,7 @@
     },
     "proxies": {
     "/api/": {
-    "origin": "https://gimmestuff-api.herokuapp.com/api/"
+    "origin": "https://gimmestuff-front.herokuapp.com/api/"
     }
     }
    }
