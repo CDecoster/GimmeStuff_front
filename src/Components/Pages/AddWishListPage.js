@@ -57,14 +57,22 @@ function AddWishlistPage() {
   submit.type = "submit";
   submit.className = "btn btn-danger";
 
+  
+  const labelTitle = document.createElement("label");
+  labelTitle.innerText = "Titre : ";
+  const labelDescription = document.createElement("label");
+  labelDescription.innerText = "Description : ";
   const labelJour = document.createElement("label");
-  labelJour.innerText = "Date de naissance : \n Jour : ";
+  labelJour.innerText = "Date de fin de la wishlist : \n Jour : ";
   const labelMois = document.createElement("label");
   labelMois.innerText = "Mois : ";
   const labelAnnee = document.createElement("label");
   labelAnnee.innerText = "Annee : ";
 
+
+  form.appendChild(labelTitle);
   form.appendChild(title);
+  form.appendChild(labelDescription);
   form.appendChild(description);
   form.appendChild(labelJour);
   form.appendChild(jour);

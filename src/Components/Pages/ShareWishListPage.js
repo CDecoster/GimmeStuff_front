@@ -7,8 +7,8 @@ import { Redirect } from "../Router/Router";
  */
 async function ShareWishListPage() {
 
-    // let wishlistSharedId = getSessionObject("wishlistShared");
-    let wishlistSharedId = "3";
+    let wishlistSharedId = getSessionObject("wishlistShared");
+    
     let user = getSessionObject("user");
     // reset #page div
     const pageDiv = document.querySelector("#page");
@@ -74,6 +74,7 @@ async function ShareWishListPage() {
                 }
 
                 const userFound = await response.json();
+                
                 if(userFound.id == user.id){
                     
                     throw new Error(

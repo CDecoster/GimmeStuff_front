@@ -1,15 +1,13 @@
 
 import { getSessionObject} from "../../utils/session"; // destructuring assignment ("{}": see MDN for more info ; )
-import logo from "../../img/logo-wish.png";
+
 
 const Navbar = async () => {
   const navbarWrapper = document.querySelector("#navbarWrapper");
   let navbar;
   let user = getSessionObject("user");
-  const logowish = new Image();
-  logowish.src = "../../img/logo-wish.png";
-  logowish.height = 50;
-  navbarWrapper.appendChild(logowish);
+
+ 
  
 
   if (!user) {
