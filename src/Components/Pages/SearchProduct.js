@@ -186,8 +186,13 @@ const SearchProduct = async () => {
    * @returns none but redirect to wishlist/id
    */
     async function addGiftToWishList(id){
-      const content = wishlist.content+", "+id;
-      console.log("CONTENT" + content);
+      var content = "";
+      //if json empty, need to change the start string     
+      if (wishlist.content===""){
+        content = wishlist.content+id;
+      }else{
+        content= wishlist.content+", "+id;
+      }
       const options = {
         method: "PUT",
         body: JSON.stringify({

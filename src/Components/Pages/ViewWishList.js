@@ -48,14 +48,20 @@ const ViewWishList = async () => {
     const tbody = document.createElement("tbody");
     //get id of each product from our wishlist, split the json's string content
     const str = wishlist.content;
-    const words = str.split(', ');
-    for(let i=0;i<words.length;i++){
-        //amazon api async function to get all details
-
-            await searchProductFromId(words[i]);
-
-        
+    //check here if there is no product in the wishlist
+    if(wishlist.content === ''){
+        //TODOO
+    }else{
+        const words = str.split(', ');
+        for(let i=0;i<words.length;i++){
+            //amazon api async function to get all details
+    
+                await searchProductFromId(words[i]);
+    
+            
+        }
     }
+    
     table.appendChild(tbody);
     pageDiv.appendChild(tableWrapper);
     async function searchProductFromId(id){
@@ -135,7 +141,8 @@ const ViewWishList = async () => {
                 Authorization: user.token,
             },
         };
-        const response4 = await fetch("/api/gifts"+product.id);
+        console.log(product.id);
+        const response4 = await fetch("/api/gifts/"+product.id,options);
     }
     
 
