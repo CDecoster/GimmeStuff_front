@@ -53,6 +53,11 @@ const ViewShareWishList = async () => {
     table.appendChild(tbody);
     pageDiv.appendChild(tableWrapper);
 
+        /**
+   * construct a line into our table 
+   * @param {object} wishlist - details from the wishlist to show
+   * 
+   */
     function constructTableLine(wishlist){
         const line = document.createElement("tr");
           const titleCell = document.createElement("td");
@@ -77,8 +82,7 @@ const ViewShareWishList = async () => {
           const timeLeftCell = document.createElement("td");
           const idTimeLeftCell = wishlist.id ;
           timeLeftCell.id = idTimeLeftCell;
-          timeLeftCell.innerText="TEST";
-          //timeLeftCell.innerText = countDown(wishlist.end, "wishlist", idTimeLeftCell);
+          timeLeftCell.innerText = countDown(wishlist.end, "wishlist", idTimeLeftCell);
           line.appendChild(timeLeftCell);
 
          
@@ -92,9 +96,12 @@ const ViewShareWishList = async () => {
           image.addEventListener("click", onClickHandlerForInspectIcon);
     };
     
-
+    /**
+   * go to the api get the wishlist details
+   * @param {object} id - id from the wishlist to displau
+   * 
+   */
     async function getWishListDetailsFromId (id){
-        console.log("id from wish list "+id);
         const response2 = await fetch(`/api/wishlists/${id}`);
         const wishlist = await response2.json();
         constructTableLine(wishlist);

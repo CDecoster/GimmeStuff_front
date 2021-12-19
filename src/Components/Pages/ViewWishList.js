@@ -18,13 +18,17 @@ const ViewWishList = async () => {
     console.log(wishlistId + " ID DE LA WISHLIST DANS PAGE VIEW");
     const response = await fetch("/api/wishlists/"+wishlistId);
     const wishlist = await response.json();
-    //create table header of my wishlist
-    const button = document.createElement("button");
-    button.innerText= "Ajouter un produit à votre wishlist";
-    button.onclick = function(){
-        Redirect("/wishlists/addProduct");
+    //check if we are the user or juste someone who check the list
+    console.log(user.id + " = userID === "+wishlist.utilisateur+" : wishli.user");
+    if(user.id == wishlist.utilisateur){
+        const button = document.createElement("button");
+        button.innerText= "Ajouter un produit à votre wishlist";
+        button.onclick = function(){
+            Redirect("/wishlists/addProduct");
+        }
+        pageDiv.appendChild(button)
     }
-    pageDiv.appendChild(button)
+   //create table header of my wishlist
     const table = document.createElement("table");
     table.className = "table table-danger";
     tableWrapper.appendChild(table);
