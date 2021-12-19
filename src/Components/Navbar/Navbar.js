@@ -1,16 +1,18 @@
 import { Navbar as BootstrapNavbar } from "bootstrap";
-import { getSessionObject } from "../../utils/session"; // destructuring assignment ("{}": see MDN for more info ; )
+import { getSessionObject, setSessionObject } from "../../utils/session"; // destructuring assignment ("{}": see MDN for more info ; )
 import logo from "../../img/logo-wish.png";
+import { Redirect } from "../Router/Router";
 
-const Navbar = () => {
+const Navbar = async () => {
   const navbarWrapper = document.querySelector("#navbarWrapper");
   let navbar;
   let user = getSessionObject("user");
   const logowish = new Image();
   logowish.src = logo;
   logowish.height = 50;
-  navbarWrapper.appendChild(logowish)
-  
+  navbarWrapper.appendChild(logowish);
+ 
+
   if (!user) {
     navbar = `
   <nav class="navbar navbar-expand-lg navbar-light bg-danger">
@@ -68,6 +70,12 @@ const Navbar = () => {
                 <a class="nav-link" href="#" data-uri="/wishlists/add">Ajouter wishlist</a>
               </li>
               <li class="nav-item">
+                <a class="nav-link" href="#" data-uri="/">Mes wishlists</a>
+              </li>
+              <li class="nav-item">
+              <a class="nav-link" href="#" data-uri="/">Mes wishlists partagées</a>
+            </li>
+              <li class="nav-item">
               <a class="nav-link" href="#" data-uri="/UserAccount">Mon compte</a>
             </li>      
               <li class="nav-item">
@@ -82,7 +90,13 @@ const Navbar = () => {
       </nav>
   `;
   }
+  
+  
+  
+
+  
   navbarWrapper.innerHTML = navbar;
+ 
 };
 
 export default Navbar;
