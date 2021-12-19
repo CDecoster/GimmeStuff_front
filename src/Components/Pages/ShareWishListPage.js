@@ -7,7 +7,8 @@ import { Redirect } from "../Router/Router";
  */
 async function ShareWishListPage() {
 
-    let wishlistSharedId = getSessionObject("wishlistShared");
+    // let wishlistSharedId = getSessionObject("wishlistShared");
+    let wishlistSharedId = "3";
     let user = getSessionObject("user");
     // reset #page div
     const pageDiv = document.querySelector("#page");
@@ -64,7 +65,7 @@ async function ShareWishListPage() {
             try {
 
 
-                const response = await fetch(`/api/users/find/${username}`);
+                const response = await fetch(`/api/users/find/${username.value}`);
 
                 if (!response.ok) {
                     throw new Error(
@@ -72,16 +73,77 @@ async function ShareWishListPage() {
                     );
                 }
 
+                const userFound = await response.json();
+                if(userFound.id == user.id){
+                    console.log("userfoundid : "+ userFound.id);
+                    console.log("user id :"+user.id);
+                    throw new Error(
+                        "Vous ne pouvez pas vous ajotuer vous même" 
+                      );
+                      
+                } 
+                console.log("forms values id, wishlist id, sharedwishtlist of user ids: " + userFound.id + " " + "3" + " " + userFound.sharedWishList);
+
+                const str = userFound.sharedWishList;
+                console.log("str :"+str);
+                const words = str.split(",");
+                for (let i = 0; i < words.length; i++) {
+                    //check if wishlist is already in sharedwishlist of the user
+
+                    if(words[i] === wishlistSharedId ) throw new Error(
+                        "L'utilisateur peut déjà consulter cette wishList : " 
+                      );
+
+
+
+                }
+                var newWishListShared = "";
+                if(words==""){
+                    newWishListShared = str.concat(wishlistSharedId);
+                }else{
+                    newWishListShared = str.concat(","+wishlistSharedId);
+                }
+                
+                console.log("new shared wishlist : "+newWishListShared)
+                const options = {
+                    method: "PUT", // *GET, POST, PUT, DELETE, etc.
+                    body: JSON.stringify({
+                        "sharedWishList": newWishListShared
+                    }), // body data type must match "Content-Type" header
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: user.token,
+                    },
+                };
+
+                const response2 = await fetch(`/api/users/${userFound.id}`, options); // fetch return a promise => we wait for the response
+
+                if (!response2.ok) {
+                    throw new Error(
+                        "fetch error : " + response2.status + " : " + response2.statusText
+                    );
+                }
+                else{
+                    /*popup reussie*/
+                    Redirect("/wishlists/share");
+                }
+                
+                
                 
 
             }
             catch (error) {
                 console.error("SharedWishlistPage::error: ", error);
             }
+
+            
         }
 
 
 
     }
+   
 
 }
+
+export default ShareWishListPage;

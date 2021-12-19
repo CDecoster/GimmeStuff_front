@@ -11,6 +11,8 @@ const Logout = () => {
   removeSessionObject("wishlistInspected");
 
   
+
+
   // re-render the navbar for a non-authenticated user
   Navbar();
   Redirect("/"); 

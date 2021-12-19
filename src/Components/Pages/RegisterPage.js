@@ -91,21 +91,23 @@ function RegisterPage() {
   pageDiv.appendChild(form);
 
   async function onSubmit(e) {
-    let checkPassword = true;
+    
     e.preventDefault();
 
 
     checkInputs();
-    console.log("credentials", username.value, password.value, email.value);
+    
 
     function checkInputs() {
       const passwordValue = password.value.trim();
       const password2Value = confirmPassword.value.trim();
+      
 
 
       if (password2Value !== passwordValue) {
         PopupError();
-        return;
+        console.log("check entrer");
+        end();
       }
 
 
@@ -114,10 +116,7 @@ function RegisterPage() {
 
 
 
-    // function setSuccesFor(input) {
-    //   const formControl = input.parentElement;
-    //   formControl.className = 'form-control mb-3 succes';
-    // }
+    
 
     var stringAvantJour = "-";
     const stringJour = jour.value.toString();

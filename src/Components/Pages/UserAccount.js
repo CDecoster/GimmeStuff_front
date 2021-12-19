@@ -80,6 +80,7 @@ try {
       },
     };
 
+    /*IL FAUT PAS PASSER PAR LE AUTHs  */
     const response = await fetch("/api/auths/userAccount", options); // fetch return a promise => we wait for the response
 
     if (!response.ok) {
