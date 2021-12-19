@@ -122,31 +122,31 @@ async function UserAcount() {
     form.addEventListener("submit", onSubmit);
     pageDiv.appendChild(form);
 
-  
+
 
 
     async function onSubmit(e) {
       e.preventDefault();
       if (!username.value) {
         username.value = username.placeholder;
-        console.log("placeholder into value username : " + username.placeholder);
+
       }
       if (!email.value) {
         email.value = email.placeholder;
-        console.log("placeholder into value email : " + email.placeholder);
+
       }
-      
+
 
 
       var newPasswordUser = currentPassword.value;
-      console.log("newPasswordUser :"+newPasswordUser);
 
+      //verify  current password
       const options3 = {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         body: JSON.stringify({
           username: userFound.username,
           password: currentPassword.value,
-          
+
         }), // body data type must match "Content-Type" header
         headers: {
           "Content-Type": "application/json",
@@ -154,31 +154,29 @@ async function UserAcount() {
       };
 
       const response = await fetch("/api/auths/login", options3); // fetch return a promise => we wait for the response
-      
+
       if (!response.ok) {
         throw new Error(
           "fetch error current password is wrong: " + response.status + " : " + response.statusText
         );
       }
-       await response.json(); // json() returns a promise => we wait for the data
+      await response.json(); // json() returns a promise => we wait for the data
 
-       if (password.value != confirmPassword.value) {
-         
+      if (password.value != confirmPassword.value) {
+
         throw new Error(
           "Password dont match"
-          
+
         );
       }
 
-      if(confirmPassword.value){
+      //Check if confirmPassword is empty or not
+      if (confirmPassword.value) {
         newPasswordUser = confirmPassword.value;
       }
 
-      console.log("username :"+username.value);
-      console.log("email :"+email.value);
-      console.log("password :"+newPasswordUser);
-      console.log("birthday :"+userFound.birthday);
 
+      // update of the user
       const options2 = {
         method: "PUT", // *GET, POST, PUT, DELETE, etc.
         body: JSON.stringify({
@@ -207,7 +205,7 @@ async function UserAcount() {
 
       }
       await response2.json(); // json() returns a promise => we wait for the data
-      
+
 
 
 
@@ -224,7 +222,7 @@ async function UserAcount() {
 
     }
   } catch (error) {
-    console.error("RegisterPage::error: ", error);
+    
     PopupError("Try again");
   }
 }

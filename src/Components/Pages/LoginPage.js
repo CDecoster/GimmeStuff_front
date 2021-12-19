@@ -40,11 +40,11 @@ function LoginPage() {
   pageDiv.appendChild(form);
 
   async function onSubmit(e) {
-    console.log("on submit called");
+    
     e.preventDefault();
     const username = document.getElementById("username");
     const password = document.getElementById("password");''
-    console.log("credentials", username.value, password.value);
+    
 
 
     
@@ -94,7 +94,7 @@ function LoginPage() {
       PopupSucces("Vous êtes connecté!");
       
     } catch (error) {
-      console.error("LoginPage::error: ", error);
+      
       PopupError("Mot de passe ou nom d'utilisateur erroné")
     }
   }

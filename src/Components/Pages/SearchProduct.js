@@ -114,7 +114,7 @@ const SearchProduct = async () => {
             
 
         });
-        console.log(tableIdProduct[1]);
+        
         table.appendChild(tbody);
         pageDiv.appendChild(tableWrapper);
         

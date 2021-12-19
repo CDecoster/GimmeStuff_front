@@ -119,7 +119,7 @@ function RegisterPage() {
 
       if (password2Value !== passwordValue) {
         PopupError();
-        console.log("check entrer");
+        
         end();
       }
 
@@ -135,7 +135,7 @@ function RegisterPage() {
     const stringJour = jour.value.toString();
 
     if (jour.value < 10 && stringJour[0] != "0") {
-      console.log("premier chiffre jour : " + stringJour[0]);
+      
       stringAvantJour = "-0";
     }
 
@@ -143,12 +143,12 @@ function RegisterPage() {
     var stringAvantMois = "-";
     const stringMois = mois.value.toString();
     if (mois.value < 10 && stringMois[0] != "0") {
-      console.log("premier chiffre mois : " + stringMois[0]);
+      
       stringAvantMois = "-0";
     }
 
     const birthday = annee.value + stringAvantMois + mois.value + stringAvantJour + jour.value + "T00:00";
-    console.log("date string : " + birthday);
+    
 
 
 
@@ -179,7 +179,7 @@ function RegisterPage() {
 
       }
       const user = await response.json(); // json() returns a promise => we wait for the data
-      console.log("user authenticated", user);
+      
 
 
 
@@ -199,7 +199,7 @@ function RegisterPage() {
       
      
     } catch (error) {
-      console.error("RegisterPage::error: ", error);
+      
       
     }
     
