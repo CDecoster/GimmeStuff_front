@@ -15,6 +15,7 @@ const ViewWishList = async () => {
     //get wishlistId from localStorage
     let wishlistId = getSessionObject("wishlistInspected");
     //get data from api getOne();
+    console.log(wishlistId + " ID DE LA WISHLIST DANS PAGE VIEW");
     const response = await fetch("/api/wishlists/"+wishlistId);
     const wishlist = await response.json();
     //create table header of my wishlist
@@ -49,7 +50,7 @@ const ViewWishList = async () => {
     const str = wishlist.content;
     //check here if there is no product in the wishlist
     if(wishlist.content === ''){
-        //TODOO
+        
     }else{
         const words = str.split(', ');
         for(let i=0;i<words.length;i++){

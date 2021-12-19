@@ -8,6 +8,7 @@ import ViewWishList from "../Pages/ViewWishList";
 import EditWishList from "../Pages/EditWishList";
 import UserAcount from "../Pages/UserAccount";
 import ShareWishList from "../Pages/ShareWishListPage"
+import ViewShareWishList from "../Pages/ViewShareWishList";
 
 
 // Configure your routes here
@@ -21,7 +22,8 @@ const routes = {
   "/wishlists/id" : ViewWishList,
   "/wishlists/edit": EditWishList,
   "/UserAccount": UserAcount,
-  "/wishlists/share": ShareWishList
+  "/wishlists/share": ShareWishList,
+  "/share": ViewShareWishList,
 };
 
 /**
