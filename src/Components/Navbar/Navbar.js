@@ -8,12 +8,10 @@ const Navbar = async () => {
   let navbar;
   let user = getSessionObject("user");
   const logowish = new Image();
-  logowish.src = logo;
+  logowish.src = "../../img/logo-wish.png";
   logowish.height = 50;
   navbarWrapper.appendChild(logowish);
-
-
-
+ 
 
   if (!user) {
     navbar = `
@@ -48,7 +46,6 @@ const Navbar = async () => {
       </nav>
   `;
   } else {
-    
     navbar = `
     <nav class="navbar navbar-expand-lg navbar-light bg-danger">
         <div class="container-fluid">
@@ -72,25 +69,11 @@ const Navbar = async () => {
               <li class="nav-item">
                 <a class="nav-link" href="#" data-uri="/wishlists/add">Ajouter wishlist</a>
               </li>
-              <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ">
-          Mes wishlist 
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">            
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-          </li>
-          <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Wishlist partagées
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
-            </div>
+              <li class="nav-item">
+                <a class="nav-link" href="#" data-uri="/">Mes wishlists</a>
+              </li>
+              <li class="nav-item">
+              <a class="nav-link" href="#" data-uri="/">Mes wishlists partagées</a>
             </li>
               <li class="nav-item">
               <a class="nav-link" href="#" data-uri="/UserAccount">Mon compte</a>
@@ -105,13 +88,15 @@ const Navbar = async () => {
           </div>
         </div>
       </nav>
-  `
+  `;
+  }
+  
+  
   
 
-
-  
   
   navbarWrapper.innerHTML = navbar;
+ 
 };
-}
+
 export default Navbar;
