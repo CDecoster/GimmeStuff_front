@@ -112,25 +112,25 @@ async function EditWishlistPage() {
 
                 if (!title.value) {
                     title.value = title.placeholder;
-                    console.log("placeholder into value title : " + title.placeholder);
+                    
                 }
                 if (!description.value) {
                     description.value = description.placeholder;
-                    console.log("placeholder into value description : " + description.placeholder);
+                    
                 }
                 if (!annee.value) {
                     annee.value = annee.placeholder;
-                    console.log("placeholder into value annee : " + annee.placeholder);
+                    
 
                 }
                 if (!mois.value) {
                     mois.value = mois.placeholder;
-                    console.log("placeholder into value mois : " + mois.placeholder);
+                    
                     
                 }
                 if (!jour.value) {
                     jour.value = jour.placeholder;
-                    console.log("placeholder into value jour : " + jour.placeholder);
+                    
                     
                 }
 
@@ -138,7 +138,7 @@ async function EditWishlistPage() {
                 const stringJour = jour.value.toString();
                 
                 if (jour.value < 10 && stringJour[0] != "0") {
-                    console.log("premier chiffre jour : "+ stringJour[0]);
+                    
                     stringAvantJour = "-0";
                 }
 
@@ -149,7 +149,7 @@ async function EditWishlistPage() {
                 var stringAvantMois = "-";
                 const stringMois = mois.value.toString();
                 if (mois.value < 10 && stringMois[0 != "0"]) {
-                    console.log("premier chiffre mois : "+ stringMois[0]);
+                    
                     stringAvantMois = "-0";
                 }
 
@@ -158,14 +158,14 @@ async function EditWishlistPage() {
 
 
                 const end = annee.value + stringAvantMois + mois.value + stringAvantJour + jour.value + "T00:00";
-                console.log("date string : "+end);
+                
                 // const content = document.getElementById("content");
 
 
 
 
 
-                console.log("forms values : ", title.value, description.value, end);
+                
                 try {
                     const options = {
                         method: "PUT", // *GET, POST, PUT, DELETE, etc.
@@ -188,16 +188,16 @@ async function EditWishlistPage() {
                         );
                     }
                     const wishlist = await response.json(); // json() returns a promise => we wait for the data
-                    console.log("wishlist modifiee : ");
+                    
 
                     // call the HomePage via the Router
                     Redirect("/");
                 } catch (error) {
-                    console.error("EditWishlistPage::error: ", error);
+                    
                 }
             }
         } catch (error) {
-            console.error("EditWishlistPage::error: ", error);
+            
         }
 
 
@@ -209,11 +209,6 @@ async function EditWishlistPage() {
 
 
 
-// function checkYear(annee) {
-//     // console.log("year.value.length : " + year.value.length);
-//     // if(year === void 0) year.value = yearPlaceHolder;
-//     console.log("annee.value : " + annee.value);
-// }
 
 
 export default EditWishlistPage;

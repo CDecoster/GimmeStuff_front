@@ -116,21 +116,21 @@ const HomePage = async () => {
         thead.appendChild(header);
         const header1 = document.createElement("th");
         header1.innerText = "Wishlist";
-        // const header2 = document.createElement("th");
-        // header2.innerText = "Createur wishlist";
+        
         const header3 = document.createElement("th");
         header3.innerText = "Description";
-        // const header4 = document.createElement("th");
-        // header4.innerText = "contenu";
+        
         const header5 = document.createElement("th");
         header5.innerText = "Temps restant";
+        const header4 = document.createElement("th");
+        header4.innerText = "Partager"
         const header6 = document.createElement("th");
         header6.innerText = "Modifier";
-        header.appendChild(header1);
-        // header.appendChild(header2);
-        header.appendChild(header3);
-        // header.appendChild(header4);
+
+        header.appendChild(header1);        
+        header.appendChild(header3);        
         header.appendChild(header5);
+        header.appendChild(header4);
         header.appendChild(header6);
         table.appendChild(thead);
         // deal with data rows for tbody
@@ -150,16 +150,11 @@ const HomePage = async () => {
           url.appendChild(image);
           titleCell.appendChild(url);
           line.appendChild(titleCell);
-          // const utilisateurCell = document.createElement("td");
-          // utilisateurCell.innerText = wishlist.utilisateur;
-          // line.appendChild(utilisateurCell);
+          
           const descriptionCell = document.createElement("td");
           descriptionCell.innerText = wishlist.description;
           line.appendChild(descriptionCell);
-          // const contentCell = document.createElement("td");
-          // contentCell.innerText = wishlist.content
-
-          // line.appendChild(contentCell);
+         
 
           const timeLeftCell = document.createElement("td");
           const idTimeLeftCell = wishlist.id+wishlists.length;
@@ -168,7 +163,14 @@ const HomePage = async () => {
           
           line.appendChild(timeLeftCell);
 
-          
+          const sharedCell = document.createElement("td");
+          const url3 = document.createElement("button");
+          url3.style.background = "none";
+          url3.style.border = "none";
+          url3.id = wishlist.id + wishlists.length * 2;
+          url3.innerText = "Partager wishList";
+          sharedCell.appendChild(url3);
+          line.appendChild(sharedCell);
           
           
           const imageCell = document.createElement("td");
@@ -198,6 +200,15 @@ const HomePage = async () => {
           }
           image2.addEventListener("click", onClickHandlerForModifyIcon);
           
+          
+          function onClickHandlerForSharing() {
+
+            console.log("onClickHandlerForSharing::click" + " wishlist id : " + wishlist.id);
+            setSessionObject("wishlistShared", wishlist.id);
+
+            Redirect("/wishlists/share");
+          }
+          url3.addEventListener("click", onClickHandlerForSharing);
 
 
         });
