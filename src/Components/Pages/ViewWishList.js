@@ -105,6 +105,7 @@ const ViewWishList = async () => {
                 const button2 = document.createElement("button");
                 button2.innerText = "reserve";
                 button2.onclick = function () {
+                    //TODO PUT SUR GIFT
                     Redirect("/wishlists/id");
                 }
                 button2Cell.appendChild(button2);
