@@ -8,7 +8,7 @@ import { getSessionObject } from "../../utils/session";
 function AddWishlistPage() {
   let user = getSessionObject("user");
   if (!user) return Redirect("/");
-  console.log("user id : " + user.id);
+  
   // reset #page div
 
 
@@ -82,25 +82,24 @@ function AddWishlistPage() {
 
     if (!title.value) {
       title.value = title.placeholder;
-      console.log("placeholder into value title : " + title.placeholder);
+      
     }
     if (!description.value) {
       description.value = description.placeholder;
-      console.log("placeholder into value description : " + description.placeholder);
+      
     }
     if (!annee.value) {
       annee.value = annee.placeholder;
-      console.log("placeholder into value annee : " + annee.placeholder);
-
+      
     }
     if (!mois.value) {
       mois.value = mois.placeholder;
-      console.log("placeholder into value mois : " + mois.placeholder);
+      
 
     }
     if (!jour.value) {
       jour.value = jour.placeholder;
-      console.log("placeholder into value jour : " + jour.placeholder);
+      
 
     }
 
@@ -108,7 +107,7 @@ function AddWishlistPage() {
     const stringJour = jour.value.toString();
 
     if (jour.value < 10 && stringJour[0] != "0") {
-      console.log("premier chiffre jour : " + stringJour[0]);
+      
       stringAvantJour = "-0";
     }
 
@@ -119,7 +118,7 @@ function AddWishlistPage() {
     var stringAvantMois = "-";
     const stringMois = mois.value.toString();
     if (mois.value < 10 && stringMois[0] != "0") {
-      console.log("premier chiffre mois : " + stringMois[0]);
+     
       stringAvantMois = "-0";
     }
 
@@ -128,10 +127,10 @@ function AddWishlistPage() {
 
 
     const end = annee.value + stringAvantMois + mois.value + stringAvantJour + jour.value + "T00:00";
-    console.log("date string : " + end);
+    
 
 
-    console.log("forms values : ", title.value, user.id, description.value, end);
+    
     try {
       const options = {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -157,12 +156,12 @@ function AddWishlistPage() {
       }
       const wishlist = await response.json(); // json() returns a promise => we wait for the data
       /*pop up de reussie ou non en fonction de wishlist*/
-      console.log("wishlist added : ", user);
+      
 
       // call the HomePage via the Router
       Redirect("/");
     } catch (error) {
-      console.error("AddWishlistPage::error: ", error);
+      
     }
   }
 }
