@@ -1,7 +1,3 @@
-// import { Redirect } from "../Router/Router";
-// import { getSessionObject } from "../../utils/session";
-// import { csonParser, parse } from "config/parser";
-
 import { getSessionObject } from "../../utils/session";
 import { Redirect } from "../Router/Router";
 import imageWish from "../../img/logo-wish.png"
@@ -13,19 +9,18 @@ const ViewWishList = async () => {
     //blank the page
     const pageDiv = document.querySelector("#page");
     pageDiv.innerHTML= "";
+    //get user from localStorage
     let user = getSessionObject("user");
     const tableWrapper = document.createElement("div");
     tableWrapper.className = "table-responsive pt-5";
-    //get data from api getOne();
+    //get wishlistId from localStorage
     let wishlistId = getSessionObject("wishlistInspected");
+    //get data from api getOne();
     const response = await fetch("/api/wishlists/"+wishlistId);
-
     const wishlist = await response.json();
-    
     //create table header of my wishlist
-
     const button = document.createElement("button");
-    button.innerText= "Add a product to your wishlist";
+    button.innerText= "Ajouter un produit à votre wishlist";
     button.onclick = function(){
         Redirect("/wishlists/addProduct");
     }
@@ -41,9 +36,9 @@ const ViewWishList = async () => {
     const header2 = document.createElement("th");
     header2.innerText = "Image";
     const header3 = document.createElement("th");
-    header3.innerText = "Price";
+    header3.innerText = "Prix";
     const header4 = document.createElement("th");
-    header4.innerText= "Reserved";
+    header4.innerText= "Réserver";
     header.appendChild(header1);
     header.appendChild(header2);
     header.appendChild(header3);
@@ -74,7 +69,11 @@ const ViewWishList = async () => {
         const product =  await response2.json();
         constructTableLine(product);
     };
-    //construct the line of the table in async function (after amazon call)
+    /**
+   * construct a line into our table 
+   * @param {object} product - gift details from the json
+   * 
+   */
     function constructTableLine(product){
         const line = document.createElement("tr");
             const titleCell = document.createElement("td");
@@ -93,7 +92,7 @@ const ViewWishList = async () => {
             const priceCell = document.createElement("td");
             priceCell.innerText = product.price;
             line.appendChild(priceCell);
-            const reservedCell = document.createElement("td");
+            //const reservedCell = document.createElement("td");
             if (product.reserved!="false") {
                 const imageOkCell = document.createElement("td");
                 const imageOk = document.createElement("img");
@@ -105,9 +104,9 @@ const ViewWishList = async () => {
             }else{
                 const button2Cell = document.createElement("td");
                 const button2 = document.createElement("button");
-                button2.innerText = "reserve";
+                button2.innerText = "Réserve-moi";
                 button2.onclick = function () {
-                    //TODO PUT SUR GIFT
+                    updateProductReserved(product);
                     Redirect("/wishlists/id");
                 }
                 button2Cell.appendChild(button2);
@@ -119,6 +118,11 @@ const ViewWishList = async () => {
             button.innerText = 
             tbody.appendChild(line);
     };
+    /**
+   * update gift reserved to reservec
+   * @param {object} product - gift details from gift json
+   * 
+   */
     async function updateProductReserved(product){
         const reserved="true";
         const options = {
