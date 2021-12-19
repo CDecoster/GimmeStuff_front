@@ -49,7 +49,7 @@ const Navbar = async () => {
     navbar = `
     <nav class="navbar navbar-expand-lg navbar-light bg-danger">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">e-Pizzeria</a>
+         
           <button
             class="navbar-toggler"
             type="button"
