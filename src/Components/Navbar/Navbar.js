@@ -1,22 +1,18 @@
 import { Navbar as BootstrapNavbar } from "bootstrap";
-import { getSessionObject } from "../../utils/session"; // destructuring assignment ("{}": see MDN for more info ; )
+import { getSessionObject, setSessionObject } from "../../utils/session"; // destructuring assignment ("{}": see MDN for more info ; )
 import logo from "../../img/logo-wish.png";
+import { Redirect } from "../Router/Router";
 
- const Navbar = async() => {
+const Navbar = async () => {
   const navbarWrapper = document.querySelector("#navbarWrapper");
   let navbar;
   let user = getSessionObject("user");
   const logowish = new Image();
   logowish.src = logo;
   logowish.height = 50;
-  navbarWrapper.appendChild(logowish)
+  navbarWrapper.appendChild(logowish);
+ 
 
-
-  function myWishLists(){
-    
-    console.log("mywishlist");
-  }
-  
   if (!user) {
     navbar = `
   <nav class="navbar navbar-expand-lg navbar-light bg-danger">
@@ -50,9 +46,6 @@ import logo from "../../img/logo-wish.png";
       </nav>
   `;
   } else {
-    const response1 = await fetch(`/api/wishlists/user=${user.id}`);
-    const wishlists = await response1.json(); // json() returns a promise => we wait for the data
-    console.log(wishlists.length); 
     navbar = `
     <nav class="navbar navbar-expand-lg navbar-light bg-danger">
         <div class="container-fluid">
@@ -76,27 +69,11 @@ import logo from "../../img/logo-wish.png";
               <li class="nav-item">
                 <a class="nav-link" href="#" data-uri="/wishlists/add">Ajouter wishlist</a>
               </li>
-              <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="${myWishLists()}">
-          Mes wishlist 
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">${wishlists[0].title}</a>
-          <a class="dropdown-item" href="#">${wishlists[1].title}</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-          </li>
-          <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Wishlist partagées
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
-            </div>
+              <li class="nav-item">
+                <a class="nav-link" href="#" data-uri="/">Mes wishlists</a>
+              </li>
+              <li class="nav-item">
+              <a class="nav-link" href="#" data-uri="/">Mes wishlists partagées</a>
             </li>
               <li class="nav-item">
               <a class="nav-link" href="#" data-uri="/UserAccount">Mon compte</a>
@@ -113,7 +90,13 @@ import logo from "../../img/logo-wish.png";
       </nav>
   `;
   }
+  
+  
+  
+
+  
   navbarWrapper.innerHTML = navbar;
+ 
 };
 
 export default Navbar;
