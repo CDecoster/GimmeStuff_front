@@ -8,7 +8,12 @@ const Navbar = async () => {
   let navbar;
   let user = getSessionObject("user");
   const logowish = new Image();
+<<<<<<< HEAD
   logowish.src = "../../img/logo-wish.png";
+=======
+  logowish.src = logo;
+  console.log(logo);
+>>>>>>> 20719cc2100669d0e41dcb7cdaef3f0e22b5f10f
   logowish.height = 50;
   navbarWrapper.appendChild(logowish);
  
@@ -17,7 +22,6 @@ const Navbar = async () => {
     navbar = `
   <nav class="navbar navbar-expand-lg navbar-light bg-danger">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">${logowish}</a>
           <button
             class="navbar-toggler"
             type="button"
