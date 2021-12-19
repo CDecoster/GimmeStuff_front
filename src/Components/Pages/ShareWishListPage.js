@@ -75,17 +75,15 @@ async function ShareWishListPage() {
 
                 const userFound = await response.json();
                 if(userFound.id == user.id){
-                    console.log("userfoundid : "+ userFound.id);
-                    console.log("user id :"+user.id);
+                    
                     throw new Error(
                         "Vous ne pouvez pas vous ajotuer vous même" 
                       );
                       
                 } 
-                console.log("forms values id, wishlist id, sharedwishtlist of user ids: " + userFound.id + " " + "3" + " " + userFound.sharedWishList);
-
+                
                 const str = userFound.sharedWishList;
-                console.log("str :"+str);
+               
                 const words = str.split(",");
                 for (let i = 0; i < words.length; i++) {
                     //check if wishlist is already in sharedwishlist of the user
@@ -104,7 +102,7 @@ async function ShareWishListPage() {
                     newWishListShared = str.concat(","+wishlistSharedId);
                 }
                 
-                console.log("new shared wishlist : "+newWishListShared)
+                
                 const options = {
                     method: "PUT", // *GET, POST, PUT, DELETE, etc.
                     body: JSON.stringify({
@@ -133,7 +131,7 @@ async function ShareWishListPage() {
 
             }
             catch (error) {
-                console.error("SharedWishlistPage::error: ", error);
+               
             }
 
             

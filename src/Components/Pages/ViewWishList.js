@@ -141,7 +141,7 @@ const ViewWishList = async () => {
                 Authorization: user.token,
             },
         };
-        console.log(product.id);
+        
         const response4 = await fetch("/api/gifts/"+product.id,options);
     }
     

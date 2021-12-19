@@ -13,7 +13,6 @@ const HomePage = async () => {
 
 
   // reset #page div
-
   const pageDiv = document.querySelector("#page");
   pageDiv.innerHTML = "";
 
@@ -21,16 +20,13 @@ const HomePage = async () => {
 
     /*TO DO html for homepage when not connected*/
   
-    pageDiv.innerHTML = ` <div id="boxes">
+    pageDiv.innerHTML = `<div id="boxes">
     <div class="box red"></div>
     <div class="box blue"></div>
     <div class="box green"></div>
     <div class="box cyan"></div>
   
-</div>
-    
-    
-    `;
+    </div>`;
 
     anime ({
       targets: 'div.box',
@@ -72,7 +68,7 @@ const HomePage = async () => {
       const wishlists = await response1.json(); // json() returns a promise => we wait for the data
 
 
-      try {
+      try{
         const response2 = await fetch(`/api/users/${user.id}`); // fetch return a promise => we wait for the response
 
         if (!response2.ok) {
@@ -82,19 +78,19 @@ const HomePage = async () => {
           );
         }
         const userInfos = await response2.json(); // json() returns a promise => we wait for the data
-        console.log("user info birthday" + userInfos.birthday);
+        ;
         const countDownText = document.createElement("div");
-        countDownText.id = "countDownText";
+        countDownText.id ="countDownText";
         countDownText.innerText = countDown(userInfos.birthday, "birthday", countDownText.id);
-
+        
         pageDiv.appendChild(countDownText);
 
       }
-      catch {
-        console.error("userInfos::error: ", error);
+      catch{
+        
       }
-
-
+      
+      
 
       if (wishlists.length == 0) {
 
@@ -104,7 +100,7 @@ const HomePage = async () => {
 
       }
       else {
-
+        /*colonne contenu et utilisateur ne sont plus nécessaires*/
 
 
         // create a wrapper to provide a responsive table
@@ -120,25 +116,23 @@ const HomePage = async () => {
         thead.appendChild(header);
         const header1 = document.createElement("th");
         header1.innerText = "Wishlist";
-
+        
         const header3 = document.createElement("th");
         header3.innerText = "Description";
-
+        
         const header5 = document.createElement("th");
         header5.innerText = "Temps restant";
         const header4 = document.createElement("th");
         header4.innerText = "Partager"
         const header6 = document.createElement("th");
         header6.innerText = "Modifier";
-        header.appendChild(header1);
 
-        header.appendChild(header3);
-
+        header.appendChild(header1);        
+        header.appendChild(header3);        
         header.appendChild(header5);
         header.appendChild(header4);
         header.appendChild(header6);
         table.appendChild(thead);
-
         // deal with data rows for tbody
         const tbody = document.createElement("tbody");
         wishlists.forEach((wishlist) => {
@@ -156,17 +150,17 @@ const HomePage = async () => {
           url.appendChild(image);
           titleCell.appendChild(url);
           line.appendChild(titleCell);
-
+          
           const descriptionCell = document.createElement("td");
           descriptionCell.innerText = wishlist.description;
           line.appendChild(descriptionCell);
-
+         
 
           const timeLeftCell = document.createElement("td");
-          const idTimeLeftCell = wishlist.id + wishlists.length;
+          const idTimeLeftCell = wishlist.id+wishlists.length;
           timeLeftCell.id = idTimeLeftCell;
-          timeLeftCell.innerText = countDown(wishlist.end, "wishlist", idTimeLeftCell);
-
+          timeLeftCell.innerText = countDown(wishlist.end, "birthday", idTimeLeftCell);
+          
           line.appendChild(timeLeftCell);
 
           const sharedCell = document.createElement("td");
@@ -177,11 +171,8 @@ const HomePage = async () => {
           url3.innerText = "Partager wishList";
           sharedCell.appendChild(url3);
           line.appendChild(sharedCell);
-
-
-
-
-
+          
+          
           const imageCell = document.createElement("td");
           const url2 = document.createElement("a");
           url2.href = "/wishlists/edit";
@@ -191,29 +182,30 @@ const HomePage = async () => {
           imageCell.appendChild(url2);
           line.appendChild(imageCell);
 
-
+         
           tbody.appendChild(line);
 
           function onClickHandlerForInspectIcon() {
 
-            console.log("onClickHandlerForInspectIcon::click" + " wishlist id : " + wishlist.id);
+            
             setSessionObject("wishlistInspected", wishlist.id);
           }
           image.addEventListener("click", onClickHandlerForInspectIcon);
-
+          
 
           function onClickHandlerForModifyIcon() {
 
-            console.log("onClickHandlerForModifyIcon::click" + " wishlist id : " + wishlist.id);
+            
             setSessionObject("wishlistModified", wishlist.id);
           }
           image2.addEventListener("click", onClickHandlerForModifyIcon);
-
+          
+          
           function onClickHandlerForSharing() {
 
-            console.log("onClickHandlerForSharing::click" + " wishlist id : " + wishlist.id);
-            setSessionObject("wishlistShared", wishlist.id);
             
+            setSessionObject("wishlistShared", wishlist.id);
+
             Redirect("/wishlists/share");
           }
           url3.addEventListener("click", onClickHandlerForSharing);
@@ -226,7 +218,7 @@ const HomePage = async () => {
       }
 
     } catch (error) {
-      console.error("wishlistView::error: ", error);
+      
     }
   };
 }
