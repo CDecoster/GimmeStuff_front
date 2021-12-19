@@ -39,6 +39,17 @@ body {
 }
 
 
+.p-55{
+    background-color: bisque;
+    display:inline-flex;
+    align-items: left;     
+    display: inline-block;
+    max-width: 50vh;    
+    box-sizing: border-box;
+    margin: 0;
+}
+
+
 
 .form-control.mb-3.succes input{
     border-color: #2ecc71;
@@ -66,3 +77,38 @@ body {
     position: absolute; 
 }
 
+#boxes {
+
+    text-align: center;
+}
+
+#btns {
+    padding: 25px;
+    background: white;
+    margin-bottom: 40px;
+}
+
+#btns button {
+    background: white;
+    padding: 5px 10px;
+    border: 0px;
+}
+
+#btns .fa {
+    font-size: 30px;
+    color: #0078D7;
+}
+
+
+.box {
+position: relative;
+width: 60px;
+height: 60px;
+margin: 4px;
+display: inline-block;
+}
+
+.red {background-color: #1e344f;}
+.blue {background-color: #ce4146;}
+.green {background-color: #f6b144;}
+.cyan {background-color: #8a9ba6;}

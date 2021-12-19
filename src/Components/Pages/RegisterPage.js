@@ -158,7 +158,7 @@ function RegisterPage() {
       const response = await fetch("/api/auths/register", options); // fetch return a promise => we wait for the response
 
       if (!response.ok) {
-        PopupError();
+        PopupError("Try again");
         throw new Error(
           "fetch error : " + response.status + " : " + response.statusText
 
@@ -183,19 +183,23 @@ function RegisterPage() {
       Redirect("/");
 
       // Display the succes Pop-up
-      PopupSucces();
-
-
+      PopupSucces("You're sign in!");
+      
+     
     } catch (error) {
       console.error("RegisterPage::error: ", error);
-
+      
     }
+    
+    }//else{
+     // PopupError("password does not match");
+   // }
 
 
 
 
+  
 
-  }
 }
 
 export default RegisterPage;
