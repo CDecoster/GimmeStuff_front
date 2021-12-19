@@ -3,6 +3,7 @@ import { Redirect } from "../Router/Router";
 import modifyIcon from "../../img/icon_modify.png";
 import inspectIcon from "../../img/icon_inspect.png";
 import countDown from "../../utils/countDown";
+
 /**
  * Render a view of the pizzas into the #page div (formerly pizzaView function )
  */
@@ -19,6 +20,37 @@ const HomePage = async () => {
   if (!user) {
 
     /*TO DO html for homepage when not connected*/
+  
+    pageDiv.innerHTML = ` <div id="boxes">
+    <div class="box red"></div>
+    <div class="box blue"></div>
+    <div class="box green"></div>
+    <div class="box cyan"></div>
+  
+</div>
+    
+    
+    `;
+
+    anime ({
+      targets: 'div.box',
+      translateY: [
+          {value: 200, duration: 500},
+          {value:0, duration: 800}  
+      ],
+      rotate: {
+      value: '1turn',
+      },
+      borderRadius: 50,
+      direction: 'alternate',
+      easing: 'easeInOutQuad',
+      delay: function() { return anime.random(0, 1000); },
+      autoplay: true,
+      loop: true,
+      elasticity: 200 
+     
+  }); 
+  playPause.play();
 
   }
   else {

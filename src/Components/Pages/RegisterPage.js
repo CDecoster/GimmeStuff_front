@@ -20,7 +20,7 @@ function RegisterPage() {
   const username = document.createElement("input");
   username.type = "text";
   username.id = "username";
-  username.placeholder = "username";
+  username.placeholder = "nom d'utilisateur";
   username.required = true;
   username.className = "form-control mb-3";
   const email = document.createElement("input");
@@ -33,13 +33,13 @@ function RegisterPage() {
   password.type = "password";
   password.id = "password";
   password.required = true;
-  password.placeholder = "password";
+  password.placeholder = "mot de passe";
   password.className = "form-control mb-3";
   const confirmPassword = document.createElement("input");
   confirmPassword.type = "password";
   confirmPassword.id = "confirmPassword";
   confirmPassword.required = true;
-  confirmPassword.placeholder = " Confirm password";
+  confirmPassword.placeholder = " Confirmer mot de passe";
   confirmPassword.className = "form-control mb-3";
   const submit = document.createElement("input");
 
@@ -71,7 +71,7 @@ function RegisterPage() {
   const labelAnnee = document.createElement("label");
   labelAnnee.innerText = "Annee : ";
 
-  submit.value = "Register";
+  submit.value = "S'inscrire";
   submit.type = "submit";
   submit.className = "btn btn-danger";
   form.appendChild(username);
@@ -157,7 +157,7 @@ function RegisterPage() {
       const response = await fetch("/api/auths/register", options); // fetch return a promise => we wait for the response
 
       if (!response.ok) {
-        PopupError();
+        PopupError("Try again");
         throw new Error(
           "fetch error : " + response.status + " : " + response.statusText
 
@@ -182,19 +182,23 @@ function RegisterPage() {
       Redirect("/");
 
       // Display the succes Pop-up
-      PopupSucces();
-
-
+      PopupSucces("Vous êtes inscrit!");
+      
+     
     } catch (error) {
       console.error("RegisterPage::error: ", error);
-
+      
     }
+    
+  /*}else{
+     PopupError("les mots de passe ne correspondent pas");
+    }*/}
 
 
 
 
+  
 
-  }
 }
 
 export default RegisterPage;

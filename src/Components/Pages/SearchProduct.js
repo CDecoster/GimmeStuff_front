@@ -9,13 +9,16 @@ import { Redirect } from "../Router/Router";
 const SearchProduct = async () => {
     //var idProduct = "";
     const tableWrapper = document.createElement("div");
-    
+    //private key of the amazon api
     const RAPID_API_KEY = "05871a0257mshf23d8f2255fb47bp1c1254jsne2d0ab7b6b77";
+    //blank the page
     const pageDiv = document.querySelector("#page");
     pageDiv.innerHTML= "";
+    //get user from localStorage
     let user = getSessionObject("user");
-    //get data from api getOneWishlist
+    //get wishlist id from localStorage
     let wishlistId = getSessionObject("wishlistInspected");
+    //get data from api getOneWishlist
     const response =  await fetch("/api/wishlists/"+wishlistId);
     const wishlist =  await response.json();
     //button bar to start search on amazon api
@@ -28,7 +31,7 @@ const SearchProduct = async () => {
     searchTerm.required = true;
     searchTerm.className = "form-control mb-3";
     const submit = document.createElement("input");
-    submit.value = "Search";
+    submit.value = "Chercher";
     submit.type = "submit";
     submit.className = "btn btn-danger";
     form.appendChild(searchTerm);
@@ -40,19 +43,17 @@ const SearchProduct = async () => {
     async function onSubmit(e){
         e.preventDefault();
         const searchTerm = document.getElementById("searchTerm");
-
-        console.log("forms values : ", searchTerm.value);
         tableWrapper.innerHTML="";
         searchProducts(searchTerm.value);
     }
 
 
-    //array of products from Amazon API
-    
+  /**
+   * dynamically create the table
+   * @param {json} prod - the json with details of the products from amazon
+   * 
+   */
     function showTable(prod){
-        //create htmltable dynamic
-        console.log("JE SUIS ICI 1");
-        var wishlistId = getSessionObject("wishlistInspected");
         tableWrapper.className = "table-responsive pt-5";
         const table = document.createElement("table");
         table.className = "table table-danger";
@@ -65,26 +66,23 @@ const SearchProduct = async () => {
         const header2 = document.createElement("th");
         header2.innerText = "Image";
         const header3 = document.createElement("th");
-        header3.innerText = "Price";
+        header3.innerText = "Prix";
         const header4 = document.createElement("th");
-        header4.innerText = "Rating";
+        header4.innerText = "évaluation";
         const header5 = document.createElement("th");
-        header5.innerText = "Add Product"
+        header5.innerText = "Ajouter à la wishlist"
         header.appendChild(header1);
         header.appendChild(header2);
         header.appendChild(header3);
         header.appendChild(header4);
         header.appendChild(header5);
         table.appendChild(thead);
-
-        console.log("JE SUIS ICI 2");
         //data for the table
         const tbody = document.createElement("tbody");
         // add the data in the table
         var tableIdProduct = new Array (prod.length);
         var i = 0;
         prod.forEach((doc) => { 
-            console.log("JE SUIS ICI 3");
             const line = document.createElement("tr");
             const titleCell = document.createElement("td");
             titleCell.innerText = doc.product_title;
@@ -107,20 +105,13 @@ const SearchProduct = async () => {
             line.appendChild(ratingCell);
             const buttonCell = document.createElement("td");
             const button = document.createElement("button");
-            button.innerText = "Add To WishList";
+            button.innerText = "ajouter à la wishlist";
             button.onclick = function(){
-              console.log("J4AICLIQU2");
                 addGift(doc);
-                addGiftToWishList(doc.product_id);
-              
+                addGiftToWishList(doc.product_id);    
             }
             buttonCell.appendChild(button);
             line.appendChild(buttonCell);
-            //const urlCell = document.createElement("td");
-            //const url = document.createElement("a");
-            //url.href= doc.product_detail_url;
-            //urlCell.appendChild(url);
-            //line.appendChild(urlCell);
             tbody.appendChild(line);
             tableIdProduct[i] = doc.product_id;
             i++;
@@ -134,7 +125,11 @@ const SearchProduct = async () => {
     };
 
 
-
+  /**
+   * call the amazon api to get a list of result
+   * @param {string} term - the search term
+   * @returns {json} but call showTable function to create table
+   */
     async function searchProducts(term) {   
       fetch("https://amazon24.p.rapidapi.com/api/product?categoryID=aps&keyword=" + term+"&country=FR", {
         "method": "GET",
@@ -148,15 +143,16 @@ const SearchProduct = async () => {
           status: response.status
         })
         ).then(res => {
-          //console.log(res.status, res.data.docs);
           showTable(res.data.docs);
-          addGift(res.data.docs);
-          
+          //addGift(res.data.docs); 
         }));
-        
-
     } 
-    //function to add a gift to the api
+
+     /**
+   * Adds the gift to the gift json if not already there
+   * @param {object} gift - the gift with all details needed to do the CREATE
+   * @returns none but redirect to wishlist/id
+   */
     async function addGift(gift){
       const title = gift.product_title;
       const image = gift.product_main_image_url;
@@ -184,9 +180,19 @@ const SearchProduct = async () => {
       }
       //const gift = await response.json();
     }
+    /**
+   * Adds the gift to the wishlist
+   * @param {number} id - idAmazon of the gift to add in the content of whishlist
+   * @returns none but redirect to wishlist/id
+   */
     async function addGiftToWishList(id){
-      const content = wishlist.content+", "+id;
-      console.log("CONTENT" + content);
+      var content = "";
+      //if json empty, need to change the start string     
+      if (wishlist.content===""){
+        content = wishlist.content+id;
+      }else{
+        content= wishlist.content+", "+id;
+      }
       const options = {
         method: "PUT",
         body: JSON.stringify({

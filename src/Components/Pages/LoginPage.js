@@ -3,6 +3,7 @@ import {Redirect} from "../Router/Router";
 import Navbar from "../Navbar/Navbar";
 import { setSessionObject } from "../../utils/session";
 import PopupSucces from "../../utils/PopupSucces";
+import PopupError from "../../utils/PopupError";
 
 /**
  * View the Login form :
@@ -18,17 +19,17 @@ function LoginPage() {
   const username = document.createElement("input");
   username.type = "text";
   username.id = "username";
-  username.placeholder = "username";
+  username.placeholder = "nom d'utilisateur";
   username.required = true;
   username.className = "form-control mb-3";
   const password = document.createElement("input");
   password.type = "password";
   password.id = "password";
   password.required = true;
-  password.placeholder = "password";
+  password.placeholder = "mot de passe";
   password.className = "form-control mb-3";
   const submit = document.createElement("input");
-  submit.value = "Login";
+  submit.value = "Se connecter";
   submit.type = "submit";
   submit.className = "btn btn-danger";
   form.appendChild(username);
@@ -90,10 +91,11 @@ function LoginPage() {
 
       // call the HomePage via the Router
       Redirect("/");
-      PopupSucces();
+      PopupSucces("Vous êtes connecté!");
       
     } catch (error) {
       console.error("LoginPage::error: ", error);
+      PopupError("Mot de passe ou nom d'utilisateur erroné")
     }
   }
 }
