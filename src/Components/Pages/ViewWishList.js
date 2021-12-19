@@ -4,6 +4,7 @@
 
 import { getSessionObject } from "../../utils/session";
 import { Redirect } from "../Router/Router";
+import imageWish from "../../img/logo-wish.png"
 
 const ViewWishList = async () => {
     //private key from amazon api at https://rapidapi.com/b2g.corporation/api/amazon24/
@@ -90,6 +91,29 @@ const ViewWishList = async () => {
             const priceCell = document.createElement("td");
             priceCell.innerText = product.price;
             line.appendChild(priceCell);
+            const reservedCell = document.createElement("td");
+            if (product.reserved!="false") {
+                const imageOkCell = document.createElement("td");
+                const imageOk = document.createElement("img");
+                imageOk.src = imageWish;
+                imageOk.width ="50";
+                imageOk.height = "50";
+                imageOkCell.appendChild(imageOk);
+                line.appendChild(imageOkCell);
+            }else{
+                const button2Cell = document.createElement("td");
+                const button2 = document.createElement("button");
+                button2.innerText = "reserve";
+                button2.onclick = function () {
+                    Redirect("/wishlists/id");
+                }
+                button2Cell.appendChild(button2);
+                line.appendChild(button2Cell);
+                
+                
+            }
+            const button = document.createElement("button");
+            button.innerText = 
             tbody.appendChild(line);
     };
     

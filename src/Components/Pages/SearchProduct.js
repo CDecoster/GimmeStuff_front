@@ -13,7 +13,7 @@ const SearchProduct = async () => {
     const RAPID_API_KEY = "05871a0257mshf23d8f2255fb47bp1c1254jsne2d0ab7b6b77";
     const pageDiv = document.querySelector("#page");
     pageDiv.innerHTML= "";
-
+    let user = getSessionObject("user");
     //get data from api getOneWishlist
     let wishlistId = getSessionObject("wishlistInspected");
     const response =  await fetch("/api/wishlists/"+wishlistId);
@@ -110,8 +110,8 @@ const SearchProduct = async () => {
             button.innerText = "Add To WishList";
             button.onclick = function(){
               console.log("J4AICLIQU2");
-                const gift = addGift(doc);
-                addGiftToWishList(gift);
+                addGift(doc);
+                addGiftToWishList(doc.product_id);
               
             }
             buttonCell.appendChild(button);
@@ -184,29 +184,23 @@ const SearchProduct = async () => {
       }
       //const gift = await response.json();
     }
-    async function addGiftToWishList(gift){
-      const title = wishlist.title;
-      const utilisateur = wishlist.utilisateur;
-      const description = wishlist.description;
-      const content = wishlist.content+", "+gift.idAmazon;
-      const option = {
+    async function addGiftToWishList(id){
+      const content = wishlist.content+", "+id;
+      console.log("CONTENT" + content);
+      const options = {
         method: "PUT",
         body: JSON.stringify({
-          title: title,
-          utilisateur: utilisateur,
-          description: description,
           content: content,
         }),
          headers: {
            "Content-Type": "application/json",
-           "Access-Control-Allow-Origin" : "*", 
-            "Access-Control-Allow-Credentials" : true 
+           Authorization: user.token,
          },
       };
-      const response3 = await fetch("api/wishlists/"+wishlistId,option);
+      const response3 = await fetch(`/api/wishlists/${wishlistId}`,options);
      
 
-      Redirect("/");
+      Redirect("/wishlists/id");
     }
     
 
