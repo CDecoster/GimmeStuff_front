@@ -1,7 +1,3 @@
-// import { Redirect } from "../Router/Router";
-// import { getSessionObject } from "../../utils/session";
-// import { csonParser, parse } from "config/parser";
-
 import { getSessionObject } from "../../utils/session";
 import { Redirect } from "../Router/Router";
 
@@ -130,6 +126,13 @@ const SearchProduct = async () => {
    * @param {string} term - the search term
    * @returns {json} but call showTable function to create table
    */
+
+  /***************************************************************************************
+*    Title: <fetch method for amazon api product>
+*    Availability: <https://rapidapi.com/b2g.corporation/api/amazon24/>
+*    Legerement adapté à notre code
+*
+***************************************************************************************/
     async function searchProducts(term) {   
       fetch("https://amazon24.p.rapidapi.com/api/product?categoryID=aps&keyword=" + term+"&country=FR", {
         "method": "GET",
