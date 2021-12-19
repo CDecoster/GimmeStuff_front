@@ -3,6 +3,7 @@ import {Redirect} from "../Router/Router";
 import Navbar from "../Navbar/Navbar";
 import { setSessionObject } from "../../utils/session";
 import PopupSucces from "../../utils/PopupSucces";
+import PopupError from "../../utils/PopupError";
 
 /**
  * View the Login form :
@@ -94,6 +95,7 @@ function LoginPage() {
       
     } catch (error) {
       console.error("LoginPage::error: ", error);
+      PopupError("Mot de passe ou nom d'utilisateur erroné")
     }
   }
 }
