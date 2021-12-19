@@ -1,3 +1,5 @@
+import PopupError from "../../utils/PopupError";
+import PopupSucces from "../../utils/PopupSucces";
 import { getSessionObject } from "../../utils/session";
 import { Redirect } from "../Router/Router";
 
@@ -124,6 +126,7 @@ async function ShareWishListPage() {
                 }
                 else{
                     /*popup reussie*/
+                    PopupSucces("Wishlist partagée !")
                     Redirect("/wishlists/share");
                 }
                 
@@ -132,6 +135,7 @@ async function ShareWishListPage() {
 
             }
             catch (error) {
+                PopupError("Echec du partage");
                
             }
 

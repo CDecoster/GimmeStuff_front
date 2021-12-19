@@ -1,5 +1,7 @@
 import { Redirect } from "../Router/Router";
 import { getSessionObject } from "../../utils/session";
+import PopupError from "../../utils/PopupError";
+import PopupSucces from "../../utils/PopupSucces";
 
 /**
  * Form to add a wishlist :
@@ -165,11 +167,11 @@ function AddWishlistPage() {
       const wishlist = await response.json(); // json() returns a promise => we wait for the data
       /*pop up de reussie ou non en fonction de wishlist*/
       
-
+      PopupSucces("WishList créée!");
       // call the HomePage via the Router
       Redirect("/");
     } catch (error) {
-      
+      PopupError("Echec de la création");
     }
   }
 }
