@@ -159,7 +159,7 @@ const HomePage = async () => {
           const timeLeftCell = document.createElement("td");
           const idTimeLeftCell = wishlist.id+wishlists.length;
           timeLeftCell.id = idTimeLeftCell;
-          timeLeftCell.innerText = countDown(wishlist.end, "birthday", idTimeLeftCell);
+          timeLeftCell.innerText = countDown(wishlist.end, "wishlist", idTimeLeftCell);
           
           line.appendChild(timeLeftCell);
 
