@@ -9,6 +9,7 @@ const Navbar = async () => {
   let user = getSessionObject("user");
   const logowish = new Image();
   logowish.src = logo;
+  console.log(logo);
   logowish.height = 50;
   navbarWrapper.appendChild(logowish);
  
@@ -17,7 +18,6 @@ const Navbar = async () => {
     navbar = `
   <nav class="navbar navbar-expand-lg navbar-light bg-danger">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">${logowish}</a>
           <button
             class="navbar-toggler"
             type="button"
