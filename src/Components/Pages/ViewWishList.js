@@ -5,6 +5,7 @@
 import { getSessionObject } from "../../utils/session";
 import { Redirect } from "../Router/Router";
 import imageWish from "../../img/logo-wish.png"
+import UserAcount from "./UserAccount";
 
 const ViewWishList = async () => {
     //private key from amazon api at https://rapidapi.com/b2g.corporation/api/amazon24/
@@ -12,6 +13,7 @@ const ViewWishList = async () => {
     //blank the page
     const pageDiv = document.querySelector("#page");
     pageDiv.innerHTML= "";
+    let user = getSessionObject("user");
     const tableWrapper = document.createElement("div");
     tableWrapper.className = "table-responsive pt-5";
     //get data from api getOne();
@@ -117,6 +119,20 @@ const ViewWishList = async () => {
             button.innerText = 
             tbody.appendChild(line);
     };
+    async function updateProductReserved(product){
+        const reserved="true";
+        const options = {
+            method: "PUT",
+            body: JSON.stringify({
+                reserved: reserved,
+            }),
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: user.token,
+            },
+        };
+        const response4 = await fetch("/api/gifts"+product.id);
+    }
     
 
 
