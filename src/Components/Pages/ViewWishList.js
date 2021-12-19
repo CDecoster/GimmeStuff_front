@@ -105,11 +105,11 @@ const ViewWishList = async () => {
                 const button2 = document.createElement("button");
                 button2.innerText = "reserve";
                 button2.onclick = function () {
-
+                    Redirect("/wishlists/id");
                 }
                 button2Cell.appendChild(button2);
                 line.appendChild(button2Cell);
-                Redirect("/wishlists/id");
+                
                 
             }
             const button = document.createElement("button");
