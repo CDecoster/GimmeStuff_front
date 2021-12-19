@@ -71,7 +71,7 @@ const Navbar = async () => {
                 <a class="nav-link" href="#" data-uri="/">Mes wishlists</a>
               </li>
               <li class="nav-item">
-              <a class="nav-link" href="#" data-uri="/">Mes wishlists partagées</a>
+              <a class="nav-link" href="#" data-uri="/share">Mes wishlists partagées</a>
             </li>
               <li class="nav-item">
               <a class="nav-link" href="#" data-uri="/UserAccount">Mon compte</a>
