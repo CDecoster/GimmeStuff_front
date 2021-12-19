@@ -24,7 +24,7 @@ function RegisterPage() {
   username.required = true;
   username.className = "form-control mb-3";
   const email = document.createElement("input");
-  email.type = "test"
+  email.type = "email"
   email.id = "email"
   email.placeholder = "exemple@hotmail.com"
   email.required = true;
