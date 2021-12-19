@@ -18,17 +18,17 @@ function LoginPage() {
   const username = document.createElement("input");
   username.type = "text";
   username.id = "username";
-  username.placeholder = "username";
+  username.placeholder = "nom d'utilisateur";
   username.required = true;
   username.className = "form-control mb-3";
   const password = document.createElement("input");
   password.type = "password";
   password.id = "password";
   password.required = true;
-  password.placeholder = "password";
+  password.placeholder = "mot de passe";
   password.className = "form-control mb-3";
   const submit = document.createElement("input");
-  submit.value = "Login";
+  submit.value = "Se connecter";
   submit.type = "submit";
   submit.className = "btn btn-danger";
   form.appendChild(username);
@@ -90,7 +90,7 @@ function LoginPage() {
 
       // call the HomePage via the Router
       Redirect("/");
-      PopupSucces("You're connected!");
+      PopupSucces("Vous êtes connecté!");
       
     } catch (error) {
       console.error("LoginPage::error: ", error);
