@@ -1,4 +1,4 @@
-function countDown(dateString, usage) {
+function countDown(dateString, usage, element) {
 
 
     console.log("date string : " + dateString);
@@ -23,23 +23,23 @@ function countDown(dateString, usage) {
 
         // Display the result in the element with id="demo"
         if (usage === "birthday") {
-            document.getElementById("countDownText").innerHTML = "Il reste " + days + " jours " + hours + " heures "
+            document.getElementById(element).innerHTML = "Il reste " + days + " jours " + hours + " heures "
                 + minutes + " minutes " + seconds + " secondes avant votre anniversaire !";
 
             if (distance < 0) {
                 clearInterval(x);
-                document.getElementById("countDownText").innerHTML = "Joyeux anniversaire !!!";
+                document.getElementById(element).innerHTML = "Joyeux anniversaire !!!";
             }
         }
         if (usage === "wishlist") {
-            document.getElementById("countDownText").innerHTML = "Il reste " + days + " jours " + hours + " heures "
+            document.getElementById(element).innerHTML = "Il reste " + days + " jours " + hours + " heures "
                 + minutes + " minutes " + seconds + " secondes avant la fin du temps definit pour votre wishlist !";
 
             // If the count down is finished, write some text
 
             if (distance < 0) {
                 clearInterval(x);
-                document.getElementById("countDownText").innerHTML = "La wishlist est arrivée à la fin du temps imparti";
+                document.getElementById(element).innerHTML = "La wishlist est arrivée à la fin du temps imparti";
             }
         }
 

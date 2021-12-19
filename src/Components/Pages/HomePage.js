@@ -52,7 +52,7 @@ const HomePage = async () => {
         console.log("user info birthday" + userInfos.birthday);
         const countDownText = document.createElement("div");
         countDownText.id ="countDownText";
-        countDownText.innerText = countDown(userInfos.birthday, "birthday");
+        countDownText.innerText = countDown(userInfos.birthday, "birthday", countDownText.id);
         
         pageDiv.appendChild(countDownText);
 
@@ -131,10 +131,17 @@ const HomePage = async () => {
           // contentCell.innerText = wishlist.content
 
           // line.appendChild(contentCell);
+
           const timeLeftCell = document.createElement("td");
-          timeLeftCell.innerText = wishlist.end;
+          const idTimeLeftCell = wishlist.id+wishlists.length;
+          timeLeftCell.id = idTimeLeftCell;
+          timeLeftCell.innerText = countDown(wishlist.end, "birthday", idTimeLeftCell);
+          
           line.appendChild(timeLeftCell);
 
+          
+          
+          
           const imageCell = document.createElement("td");
           const url2 = document.createElement("a");
           url2.href = "/wishlists/edit";
@@ -144,11 +151,7 @@ const HomePage = async () => {
           imageCell.appendChild(url2);
           line.appendChild(imageCell);
 
-          /*A test de créer des boutons + un array qui fait un querey selector sur tous , ajouter un addevent listener et faire un redirect vers la page edit
-          avec le bon wishlist id dans l'url*/
-          line.dataset.wishlistId = wishlist.id;
-
-          line.dataset.userId = user.id;
+         
           tbody.appendChild(line);
 
           function onClickHandlerForInspectIcon() {
@@ -157,7 +160,7 @@ const HomePage = async () => {
             setSessionObject("wishlistInspected", wishlist.id);
           }
           image.addEventListener("click", onClickHandlerForInspectIcon);
-
+          
 
           function onClickHandlerForModifyIcon() {
 
@@ -165,7 +168,7 @@ const HomePage = async () => {
             setSessionObject("wishlistModified", wishlist.id);
           }
           image2.addEventListener("click", onClickHandlerForModifyIcon);
-
+          
 
 
         });

@@ -1,4 +1,3 @@
-import { end } from "@popperjs/core";
 import { getSessionObject } from "../../utils/session";
 import { Redirect } from "../Router/Router";
 
@@ -58,43 +57,39 @@ async function EditWishlistPage() {
 
             const wishListDate = wishlist.end.split("-");
             const wishListDay = wishListDate[2].split("T");
-            const moisPlaceHolder = wishListDate[1];
-            const jourPlaceHolder = wishListDay[0];
-            const anneePlaceHolder = wishListDate[0];
-            const end = document.createElement("div");
+            // const moisPlaceHolder = wishListDate[1];
+            // const jourPlaceHolder = wishListDay[0];
+            // const anneePlaceHolder = wishListDate[0];
+            // const end = document.createElement("div");
 
-            end.innerHTML = "Date de naissance :";
+            // end.innerHTML = "Date de naissance :";
             const jour = document.createElement("input");
             jour.type = "text";
             jour.id = "jour";
-            jour.placeholder = jourPlaceHolder;
+            jour.placeholder = wishListDay[0];
             jour.className = "form-control mb-3";
 
             const mois = document.createElement("input");
             mois.type = "text";
             mois.id = "mois";
-            mois.placeholder = moisPlaceHolder;
+            mois.placeholder = wishListDate[1];
             mois.className = "form-control mb-3";
+
             const annee = document.createElement("input");
             annee.type = "text";
             annee.id = "annee";
-            annee.placeholder = anneePlaceHolder;
+            annee.placeholder = wishListDate[0];
             annee.className = "form-control mb-3";
-            const labelJour = document.createElement("label");
-            labelJour.innerText = "Jour : ";
-            const labelMois = document.createElement("label");
-            labelMois.innerText = "Mois : ";
-            const labelAnnee = document.createElement("label");
-            labelAnnee.innerText = "Annee : ";
-            const breakPoint = document.createElement("label");
-            breakPoint.innerText = "";
-            end.appendChild(breakPoint);
-            end.appendChild(labelJour);
-            end.appendChild(jour);
-            end.appendChild(labelMois);
-            end.appendChild(mois);
-            end.appendChild(labelAnnee);
-            end.appendChild(annee);
+
+
+
+
+            // end.appendChild(labelJour);
+            // end.appendChild(jour);
+            // end.appendChild(labelMois);
+            // end.appendChild(mois);
+            // end.appendChild(labelAnnee);
+            // end.appendChild(annee);
 
 
             const submit = document.createElement("input");
@@ -102,51 +97,95 @@ async function EditWishlistPage() {
             submit.type = "submit";
             submit.className = "btn btn-danger";
 
+
             const labelTitle = document.createElement("label");
             labelTitle.innerText = "Titre de votre wishlist : ";
             const labelDescription = document.createElement("label");
             labelDescription.innerText = "Description de votre wishlist : ";
+            const labelJour = document.createElement("label");
+            labelJour.innerText = "Date de naissance : \n Jour : ";
+            const labelMois = document.createElement("label");
+            labelMois.innerText = "Mois : ";
+            const labelAnnee = document.createElement("label");
+            labelAnnee.innerText = "Annee : ";
+
             form.appendChild(labelTitle);
             form.appendChild(title);
             form.appendChild(labelDescription);
-
             form.appendChild(description);
-            form.appendChild(end);
+            // form.appendChild(end);
             // form.appendChild(content);
+            form.appendChild(labelJour);
+            form.appendChild(jour);
+            form.appendChild(labelMois);
+            form.appendChild(mois);
+            form.appendChild(labelAnnee);
+            form.appendChild(annee);
             form.appendChild(submit);
             form.addEventListener("submit", onSubmit);
             pageDiv.appendChild(form);
+            
 
             async function onSubmit(e) {
                 e.preventDefault();
-                const title = document.getElementById("title");
 
+                
 
-                // console.log("title :" + title.value);
-                // console.log("annee :" + annee);
-                // const description = document.getElementById("description");
-                // console.log("on submit before check data");
-                // if (mois === void 0) mois = moisPlaceHolder;
-                // if (annee === void 0) annee = anneePlaceHolder;
-                // if (jour === void 0) jour = jourPlaceHolder;
+                
+                
 
                 if (!title.value) {
                     title.value = title.placeholder;
+                    console.log("placeholder into value title : " + title.placeholder);
                 }
                 if (!description.value) {
-                    description.value = title.placeholder;
+                    description.value = description.placeholder;
+                    console.log("placeholder into value description : " + description.placeholder);
                 }
+                if (!annee.value) {
+                    annee.value = annee.placeholder;
+                    console.log("placeholder into value annee : " + annee.placeholder);
+
+                }
+                if (!mois.value) {
+                    mois.value = mois.placeholder;
+                    console.log("placeholder into value mois : " + mois.placeholder);
+                    
+                }
+                if (!jour.value) {
+                    jour.value = jour.placeholder;
+                    console.log("placeholder into value jour : " + jour.placeholder);
+                    
+                }
+
+                var stringAvantJour = "-";
+                const stringJour = jour.value.toString();
+                
+                if (jour.value < 10 && stringJour[0] != "0") {
+                    console.log("premier chiffre jour : "+ stringJour[0]);
+                    stringAvantJour = "-0";
+                }
+
+
+
+
                
-                console.log("on submit after check data");
-                const jour = document.getElementById("jour");
-                const mois = document.getElementById("mois");
-                const annee = document.getElementById("annee");
-                console.log("before check");
-                const end = checkYear(annee.value) + "-" + checkMonth(mois.value) + "-" + checkDay(jour.value) + "T00:00";
-                console.log("date de fin wishlist : " + end);
+                var stringAvantMois = "-";
+                const stringMois = mois.value.toString();
+                if (mois.value < 10 && stringMois[0 != "0"]) {
+                    console.log("premier chiffre mois : "+ stringMois[0]);
+                    stringAvantMois = "-0";
+                }
+
+
+
+
+
+                const end = annee.value + stringAvantMois + mois.value + stringAvantJour + jour.value + "T00:00";
+                console.log("date string : "+end);
                 // const content = document.getElementById("content");
 
-                console.log("title place holder: " + title.placeholder);
+
 
 
 
@@ -192,25 +231,13 @@ async function EditWishlistPage() {
 }
 
 
-function checkDay(jour) {
-    // console.log("jour.value.length : " + jour.value.length);
-    // if(jour === void 0) jour.value = jourPlaceHolder;
-    if (jour < 10) return "0" + jour;
-    console.log("jour.value : " + jour.value);
-}
 
-function checkMonth(mois) {
-    // console.log("mois.value.length : " + mois.value.length);
-    // if(mois === void 0) mois.value = moisPlaceHolder;
-    if (mois < 10) return "0" + mois;
-   console.log("mois.value : " + mois.value);
-}
 
-function checkYear(annee) {
-    // console.log("year.value.length : " + year.value.length);
-    // if(year === void 0) year.value = yearPlaceHolder;
-    console.log("annee.value : " + annee.value);
-}
+// function checkYear(annee) {
+//     // console.log("year.value.length : " + year.value.length);
+//     // if(year === void 0) year.value = yearPlaceHolder;
+//     console.log("annee.value : " + annee.value);
+// }
 
 
 export default EditWishlistPage;
