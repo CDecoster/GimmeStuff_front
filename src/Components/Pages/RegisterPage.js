@@ -20,26 +20,26 @@ function RegisterPage() {
   const username = document.createElement("input");
   username.type = "text";
   username.id = "username";
-  username.placeholder = "nom d'utilisateur";
+  username.placeholder = "Pseudo";
   username.required = true;
   username.className = "form-control mb-3";
   const email = document.createElement("input");
   email.type = "email"
   email.id = "email"
-  email.placeholder = "exemple@hotmail.com"
+  email.placeholder = "Exemple@hotmail.com"
   email.required = true;
   email.className = "form-control mb-3";
   const password = document.createElement("input");
   password.type = "password";
   password.id = "password";
   password.required = true;
-  password.placeholder = "mot de passe";
+  password.placeholder = "Mot de passe";
   password.className = "form-control mb-3";
   const confirmPassword = document.createElement("input");
   confirmPassword.type = "password";
   confirmPassword.id = "confirmPassword";
   confirmPassword.required = true;
-  confirmPassword.placeholder = " Confirmer mot de passe";
+  confirmPassword.placeholder = "Mot de passe";
   confirmPassword.className = "form-control mb-3";
   const submit = document.createElement("input");
 
@@ -64,6 +64,14 @@ function RegisterPage() {
   annee.placeholder = "2022";
   annee.className = "form-control mb-3";
 
+  const labelUtilisateur = document.createElement("label");
+  labelUtilisateur.innerText = "Pseudo : ";
+  const labelEmail = document.createElement("label");
+  labelEmail .innerText = "Email : ";
+  const labelMdp  = document.createElement("label");
+  labelMdp.innerText = "Mot de passe : ";
+  const labelConfirmMpd = document.createElement("label");
+  labelConfirmMpd.innerText = "Confirmer mot de passe : ";
   const labelJour = document.createElement("label");
   labelJour.innerText = "Date de naissance : \n Jour : ";
   const labelMois = document.createElement("label");
@@ -71,12 +79,17 @@ function RegisterPage() {
   const labelAnnee = document.createElement("label");
   labelAnnee.innerText = "Annee : ";
 
+
   submit.value = "S'inscrire";
   submit.type = "submit";
   submit.className = "btn btn-danger";
+  form.appendChild(labelUtilisateur);
   form.appendChild(username);
+  form.appendChild(labelEmail);
   form.appendChild(email);
+  form.appendChild(labelMdp);
   form.appendChild(password);
+  form.appendChild(labelConfirmMpd);
   form.appendChild(confirmPassword);
   form.appendChild(labelJour);
   form.appendChild(jour);
