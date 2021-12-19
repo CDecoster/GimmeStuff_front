@@ -2,6 +2,7 @@ import { getSessionObject } from "../../utils/session";
 import { Redirect } from "../Router/Router";
 import PopupSucces from "../../utils/PopupSucces";
 import PopupError from "../../utils/PopupError";
+import { left } from "@popperjs/core";
 
 
 const UserAcount = async()=>{
@@ -11,7 +12,7 @@ const userid = user.id;
 const responseU = await fetch("/api/users/"+userid);
 const userFromAPi = await responseU.json();
 const pageDiv = document.querySelector("#page");
-pageDiv.innerHTML = `<h1> User's profil<h1>`;
+pageDiv.innerHTML = `<h1> Mon profil <h1>`;
 const form1 = document.createElement("form");
 form1.className = "p-5";
 const emailtext = document.createElement("div");
@@ -66,39 +67,40 @@ async function onSubmit(e) {
 e.preventDefault();
 const emailU = userFromAPi.email;
 const passwordU = userFromAPi.password;
-const email = document.getElementById("myEmail");
-const oldPassword  = document.getElementById("curPassword");
-const newPassword = document.getElementById("newPassword");
-const password = document.getElementById("confirmPassword");
+let email = document.getElementById("myEmail");
+let oldPassword  = document.getElementById("curPassword");
+let newPasswordUser = document.getElementById("newPassword");
+let confirmPassword = document.getElementById("confirmPassword");
 
 //Check if the current password is the good one
 
 
 // Check if it's the email or the password who has to be changed
-if(email.value==='' && password.value !=''){
+if(email.value==='' && newPasswordUser.value !=''){
     email.value = emailU;
 
 }
 
-if(password.value ==='' && email!='' ){
-  password.value = passwordU;
+if(newPasswordUser.value ==='' && email!='' ){
+  newPasswordUser.value = passwordU;
 }
 console.log("email ="+email.value);
-console.log("pass ="+password.value);
+console.log("pass ="+newPasswordUser.value);
 
 
-if(oldPassword!=passwordU){
-    PopupError("Wrong password");
+if(newPasswordUser=! confirmPassword){
+  console.log("oldpassword =" +oldPassword);
+  console.log("passwordU = "+ passwordU);
+    PopupError("password does not match");
     Redirect("/UserAccount");
 }else{
-
-}try {
+try {
     const options = {
       method: "PUT", // *GET, POST, PUT, DELETE, etc.
       body: JSON.stringify({
         email: email.value,
-        password: password.value,
-        //email: email.value,
+        password: newPasswordUser.value,
+        
       }), // body data type must match "Content-Type" header
       headers: {
         "Content-Type": "application/json",
@@ -135,6 +137,7 @@ if(oldPassword!=passwordU){
     PopupError("Try again");
   }
 
+}
 }
 }
 
