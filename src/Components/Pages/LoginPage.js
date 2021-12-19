@@ -90,7 +90,7 @@ function LoginPage() {
 
       // call the HomePage via the Router
       Redirect("/");
-      PopupSucces();
+      PopupSucces("You're connected!");
       
     } catch (error) {
       console.error("LoginPage::error: ", error);

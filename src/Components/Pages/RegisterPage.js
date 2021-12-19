@@ -99,8 +99,9 @@ function RegisterPage() {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         body: JSON.stringify({
           username: username.value,
-          password: password.value,
-          //email: email.value,
+          password: password.value,      
+          birthday: "2015-06-11T00:00",
+          email: email.value,
         }), // body data type must match "Content-Type" header
         headers: {
           "Content-Type": "application/json",
@@ -110,7 +111,7 @@ function RegisterPage() {
       const response = await fetch("/api/auths/register", options); // fetch return a promise => we wait for the response
 
       if (!response.ok) {
-        PopupError();
+        PopupError("Try again");
         throw new Error(
           "fetch error : " + response.status + " : " + response.statusText
           
@@ -135,7 +136,7 @@ function RegisterPage() {
       Redirect("/");
     
       // Display the succes Pop-up
-      PopupSucces();
+      PopupSucces("You're sign in!");
       
      
     } catch (error) {
@@ -144,7 +145,7 @@ function RegisterPage() {
     }
     
     }else{
-      PopupError();
+      PopupError("password does not match");
     }
     
     

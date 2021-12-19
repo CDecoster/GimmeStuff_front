@@ -1,8 +1,10 @@
 import swal from 'sweetalert';
 
-const PopupError =() => {
 
-    swal("Something went wrong","Please register again","error");
-};
+
+function PopupError(message){
+    swal("Something went wrong",message,"error");
+}
+
 
 export default PopupError;
