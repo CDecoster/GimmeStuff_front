@@ -33,10 +33,10 @@ const Navbar = () => {
                 <a class="nav-link active" aria-current="page" href="#" data-uri="/">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" data-uri="/login">Login</a>
+                <a class="nav-link" href="#" data-uri="/login">Se connecter</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" data-uri="/register">Register</a>
+                <a class="nav-link" href="#" data-uri="/register">S'inscrire</a>
               </li>            
             </ul>
           </div>
@@ -62,16 +62,16 @@ const Navbar = () => {
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#" data-uri="/">Home</a>
+                <a class="nav-link active" aria-current="page" href="#" data-uri="/">Accueil</a>
               </li> 
               <li class="nav-item">
-                <a class="nav-link" href="#" data-uri="/wishlists/add">Add a wishlist</a>
+                <a class="nav-link" href="#" data-uri="/wishlists/add">Ajouter wishlist</a>
               </li>
               <li class="nav-item">
-              <a class="nav-link" href="#" data-uri="/UserAccount">My account</a>
+              <a class="nav-link" href="#" data-uri="/UserAccount">Mon compte</a>
             </li>      
               <li class="nav-item">
-                <a class="nav-link" href="#" data-uri="/logout">Logout</a>
+                <a class="nav-link" href="#" data-uri="/logout">Se déconnecter</a>
               </li>
               <li class="nav-item">
               <a class="nav-item nav-link disabled" href="#">${user.username}</a>
