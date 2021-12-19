@@ -1,7 +1,6 @@
 import { getSessionObject } from "../../utils/session";
 import { Redirect } from "../Router/Router";
 import imageWish from "../../img/logo-wish.png"
-import UserAcount from "./UserAccount";
 
 const ViewWishList = async () => {
     //private key from amazon api at https://rapidapi.com/b2g.corporation/api/amazon24/
