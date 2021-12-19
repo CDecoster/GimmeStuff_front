@@ -78,7 +78,7 @@ const HomePage = async () => {
           );
         }
         const userInfos = await response2.json(); // json() returns a promise => we wait for the data
-        console.log("user info birthday" + userInfos.birthday);
+        ;
         const countDownText = document.createElement("div");
         countDownText.id ="countDownText";
         countDownText.innerText = countDown(userInfos.birthday, "birthday", countDownText.id);
@@ -87,7 +87,7 @@ const HomePage = async () => {
 
       }
       catch{
-        console.error("userInfos::error: ", error);
+        
       }
       
       
@@ -187,7 +187,7 @@ const HomePage = async () => {
 
           function onClickHandlerForInspectIcon() {
 
-            console.log("onClickHandlerForInspectIcon::click" + " wishlist id : " + wishlist.id);
+            
             setSessionObject("wishlistInspected", wishlist.id);
           }
           image.addEventListener("click", onClickHandlerForInspectIcon);
@@ -195,7 +195,7 @@ const HomePage = async () => {
 
           function onClickHandlerForModifyIcon() {
 
-            console.log("onClickHandlerForModifyIcon::click" + " wishlist id : " + wishlist.id);
+            
             setSessionObject("wishlistModified", wishlist.id);
           }
           image2.addEventListener("click", onClickHandlerForModifyIcon);
@@ -203,7 +203,7 @@ const HomePage = async () => {
           
           function onClickHandlerForSharing() {
 
-            console.log("onClickHandlerForSharing::click" + " wishlist id : " + wishlist.id);
+            
             setSessionObject("wishlistShared", wishlist.id);
 
             Redirect("/wishlists/share");
@@ -218,7 +218,7 @@ const HomePage = async () => {
       }
 
     } catch (error) {
-      console.error("wishlistView::error: ", error);
+      
     }
   };
 }
