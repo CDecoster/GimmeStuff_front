@@ -1,7 +1,6 @@
 import { Navbar as BootstrapNavbar } from "bootstrap";
 import { getSessionObject, setSessionObject } from "../../utils/session"; // destructuring assignment ("{}": see MDN for more info ; )
 import logo from "../../img/logo-wish.png";
-import { Redirect } from "../Router/Router";
 
 const Navbar = async () => {
   const navbarWrapper = document.querySelector("#navbarWrapper");
