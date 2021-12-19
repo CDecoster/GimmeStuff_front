@@ -1,6 +1,6 @@
 function countDown(dateString, usage, element) {
 
-
+    console.log("element countdown html :"+element);
     console.log("date string : " + dateString);
     console.log("usage : " + usage);
     var countDownDate = new Date(dateString).getTime();

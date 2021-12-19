@@ -47,22 +47,11 @@ async function EditWishlistPage() {
             description.id = "description";
             description.placeholder = wishlist.description;
             description.className = "form-control mb-3";
-            // const content = document.createElement("input");
-
-            // content.type = "text";
-            // content.id = "content";
-
-            // content.placeholder = "content of wishlist ";
-            // content.className = "form-control mb-3";
+            
 
             const wishListDate = wishlist.end.split("-");
             const wishListDay = wishListDate[2].split("T");
-            // const moisPlaceHolder = wishListDate[1];
-            // const jourPlaceHolder = wishListDay[0];
-            // const anneePlaceHolder = wishListDate[0];
-            // const end = document.createElement("div");
-
-            // end.innerHTML = "Date de naissance :";
+            
             const jour = document.createElement("input");
             jour.type = "text";
             jour.id = "jour";
@@ -80,17 +69,6 @@ async function EditWishlistPage() {
             annee.id = "annee";
             annee.placeholder = wishListDate[0];
             annee.className = "form-control mb-3";
-
-
-
-
-            // end.appendChild(labelJour);
-            // end.appendChild(jour);
-            // end.appendChild(labelMois);
-            // end.appendChild(mois);
-            // end.appendChild(labelAnnee);
-            // end.appendChild(annee);
-
 
             const submit = document.createElement("input");
             submit.value = "Modifier";
@@ -113,8 +91,6 @@ async function EditWishlistPage() {
             form.appendChild(title);
             form.appendChild(labelDescription);
             form.appendChild(description);
-            // form.appendChild(end);
-            // form.appendChild(content);
             form.appendChild(labelJour);
             form.appendChild(jour);
             form.appendChild(labelMois);
