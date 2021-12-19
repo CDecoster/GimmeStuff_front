@@ -2,7 +2,6 @@
 import { getSessionObject} from "../../utils/session"; // destructuring assignment ("{}": see MDN for more info ; )
 import logo from "../../img/logo-wish.png";
 
-
 const Navbar = async () => {
   const navbarWrapper = document.querySelector("#navbarWrapper");
   let navbar;
