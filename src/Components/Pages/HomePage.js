@@ -21,10 +21,10 @@ const HomePage = async () => {
     /*TO DO html for homepage when not connected*/
   
     pageDiv.innerHTML = `<div id="boxes">
-    <div class="box red"></div>
-    <div class="box blue"></div>
-    <div class="box green"></div>
-    <div class="box cyan"></div>
+    <div class="box red"><div id="letter">W</div></div>
+    <div class="box blue"><div id="letter">I</div></div>
+    <div class="box green"><div id="letter">S</div></div>
+    <div class="box cyan"><div id="letter">H</div></div>
   
     </div>`;
 

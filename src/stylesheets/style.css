@@ -168,5 +168,11 @@ display: inline-block;
     margin-bottom:0;
   }
   
+  #letter{
+      font-size: large;
+      color: white;
+      align-content: flex-end;
+      
+  }
 
   
